@@ -86,7 +86,7 @@ export default function Recipe({ recipe }) {
           <div className='flex flex-col justify-between'>
             <h1
               className={`font-black leading-none ${
-                title.current.length > 24 ? 'text-[28px]' : 'text-4xl'
+                title.current.length > 20 ? 'text-[28px]' : 'text-4xl'
               }`}
             >
               {recipe.title}

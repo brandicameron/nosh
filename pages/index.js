@@ -20,7 +20,7 @@ export default function Home({ recipes }) {
     <main>
       <Head>
         <title>Nosh | Family Recipes</title>
-        <meta name='description' content='Your family recipes, easy to share and maintain.' />
+        <meta name='description' content='Cameron family recipes, all in one place.' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
         <meta name='author' content='Brandi Cameron | hello@brandicameron.com' />
         <meta name='theme-color' content='#ffffff' />

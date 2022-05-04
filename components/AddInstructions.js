@@ -5,7 +5,7 @@ export default function AddInstructions({
   setInstructions,
   handleListInputChange,
   handleDeleteInput,
-  handleAddStepInput,
+  handleAddAnotherStep,
 }) {
   return (
     <fieldset className='flex flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>
@@ -22,8 +22,8 @@ export default function AddInstructions({
         />
       ))}
       <button
-        className='flex justify-center items-center rounded p-2 m-1 bg-white min-w-full'
-        onClick={handleAddStepInput}
+        className='flex justify-center items-center rounded p-2 m-1 bg-white min-w-full font-black'
+        onClick={handleAddAnotherStep}
         type='button'
       >
         + Add Step

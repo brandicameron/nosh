@@ -1,8 +1,8 @@
 export const useCategories = () => {
   const categories = [
     'appetizers',
-    'soups',
     'sauces',
+    'soups',
     'entrees',
     'sides',
     'desserts',

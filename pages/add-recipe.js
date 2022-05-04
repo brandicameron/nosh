@@ -8,7 +8,7 @@ import AddInstructions from '../components/AddInstructions';
 import { useAddRecipe } from '../hooks/useAddRecipe';
 
 export default function AddRecipe() {
-  const { addRecipe } = useAddRecipe();
+  const { addRecipeToFirebase } = useAddRecipe();
   const [tags, setTags] = useState([]);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [recipeData, setRecipeData] = useState({
@@ -30,17 +30,30 @@ export default function AddRecipe() {
   ]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setRecipeData({
-      ...recipeData,
-      [name]: value,
-    });
+    const { name, value, type } = e.target;
+
+    if (type === 'number') {
+      setRecipeData({
+        ...recipeData,
+        [name]: parseInt(value),
+      });
+    } else {
+      setRecipeData({
+        ...recipeData,
+        [name]: value,
+      });
+    }
   };
 
   const handleListInputChange = (e, index, state, setState) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     const list = [...state];
-    list[index][name] = value;
+
+    if (type === 'number') {
+      list[index][name] = parseFloat(value);
+    } else {
+      list[index][name] = value;
+    }
 
     setState(list);
   };
@@ -52,7 +65,6 @@ export default function AddRecipe() {
     if (checked === true) {
       setTags((prev) => [...prev, name]);
     }
-
     // remove tags that have been unchecked by user that were previously selected
     if (checked === false) {
       let result = tags.filter((tag) => tag !== name);
@@ -60,7 +72,7 @@ export default function AddRecipe() {
     }
   };
 
-  const handleAddIngredientInput = () => {
+  const handleAddAnotherIngredient = () => {
     setIngredients([
       ...ingredients,
       {
@@ -71,7 +83,7 @@ export default function AddRecipe() {
     ]);
   };
 
-  const handleAddStepInput = () => {
+  const handleAddAnotherStep = () => {
     setInstructions([...instructions, { step: '' }]);
   };
 
@@ -118,7 +130,7 @@ export default function AddRecipe() {
   };
 
   const saveToFirebase = () => {
-    addRecipe(recipeData);
+    addRecipeToFirebase(recipeData);
   };
 
   return (
@@ -141,7 +153,7 @@ export default function AddRecipe() {
           type='number'
           label='Serves'
           placeholder={4}
-          value={recipeData.serves}
+          value={recipeData.serves || ''}
           handleInputChange={handleInputChange}
         />
         <label className='text-white'>Preheat Oven?</label>
@@ -151,7 +163,7 @@ export default function AddRecipe() {
             type='number'
             label='deg'
             placeholder='--'
-            value={recipeData.preheat}
+            value={recipeData.preheat || ''}
             handleInputChange={handleInputChange}
           />
         </div>
@@ -163,7 +175,7 @@ export default function AddRecipe() {
             type='number'
             label='Hour'
             placeholder='--'
-            value={recipeData.prepHour}
+            value={recipeData.prepHour || ''}
             handleInputChange={handleInputChange}
           />
           <EmbeddedLabelInput
@@ -171,7 +183,7 @@ export default function AddRecipe() {
             type='number'
             label='Min'
             placeholder='--'
-            value={recipeData.prepMin}
+            value={recipeData.prepMin || ''}
             handleInputChange={handleInputChange}
           />
         </div>
@@ -182,7 +194,7 @@ export default function AddRecipe() {
             type='number'
             label='Hour'
             placeholder='--'
-            value={recipeData.cookHour}
+            value={recipeData.cookHour || ''}
             handleInputChange={handleInputChange}
           />
           <EmbeddedLabelInput
@@ -190,7 +202,7 @@ export default function AddRecipe() {
             type='number'
             label='Min'
             placeholder='--'
-            value={recipeData.cookMin}
+            value={recipeData.cookMin || ''}
             handleInputChange={handleInputChange}
           />
         </div>
@@ -202,7 +214,7 @@ export default function AddRecipe() {
           setIngredients={setIngredients}
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
-          handleAddIngredientInput={handleAddIngredientInput}
+          handleAddAnotherIngredient={handleAddAnotherIngredient}
         />
 
         <AddInstructions
@@ -210,7 +222,7 @@ export default function AddRecipe() {
           setInstructions={setInstructions}
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
-          handleAddStepInput={handleAddStepInput}
+          handleAddAnotherStep={handleAddAnotherStep}
         />
 
         <button

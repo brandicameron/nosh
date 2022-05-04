@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCategories } from '../hooks/useCategories';
@@ -6,19 +7,20 @@ import { RiAddCircleLine } from 'react-icons/ri';
 import { CgSearch } from 'react-icons/cg';
 
 export default function Header() {
+  const [searchTerm, setSearchTerm] = useState('');
   const { categories } = useCategories();
 
   const handleSearchInput = (e) => {
-    console.log(e.target.value);
+    setSearchTerm(e.target.value);
   };
 
   const handleSearchBtn = (e) => {
     e.preventDefault();
-    console.log('Submit clicked!');
+    setSearchTerm('');
   };
 
   return (
-    <header className='flex justify-between items-center px-3 bg-indigo-600 h-16 mb-10 border-b border-indigo-500 lg:px-5'>
+    <header className='flex justify-between items-center px-3 bg-indigo-600 h-16 mb-8 border-b border-indigo-500 lg:px-5'>
       <Link href='/'>
         <a>
           <Image
@@ -33,7 +35,7 @@ export default function Header() {
       <ul className='hidden space-x-5 lg:flex'>
         {categories.map((category) => (
           <li className='text-white cursor-pointer hover:opacity-80' key={category}>
-            <Link href={`/recipes/${category}`}>
+            <Link href={`/${category}`}>
               <a className='capitalize'>{category}</a>
             </Link>
           </li>
@@ -43,17 +45,22 @@ export default function Header() {
         <li>
           <form className='relative' role='search'>
             <input
-              className='rounded-md p-1 pl-7 text-indigo-600'
+              className='rounded-md p-1 pl-3 text-indigo-600 w-56'
               name='search'
               type='search'
+              value={searchTerm}
               title='Search recipes.'
               placeholder='Search recipes...'
               aria-label='Search recipes.'
               onChange={handleSearchInput}
-            />{' '}
-            <CgSearch className='absolute text-xl text-neutral-400 -mt-[25px] ml-0.5' />
-            <button onClick={handleSearchBtn} type='submit' className='hidden'>
-              Search
+            />
+            <button
+              onClick={handleSearchBtn}
+              className='absolute text-xl text-white bg-indigo-200 rounded-r px-1 -ml-7 h-full'
+              type='submit'
+            >
+              <span className='sr-only'>Submit Search</span>
+              <CgSearch />
             </button>
           </form>
         </li>

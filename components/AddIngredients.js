@@ -5,7 +5,7 @@ export default function AddIngredients({
   setIngredients,
   handleListInputChange,
   handleDeleteInput,
-  handleAddIngredientInput,
+  handleAddAnotherIngredient,
 }) {
   return (
     <fieldset className='flex flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>
@@ -22,8 +22,8 @@ export default function AddIngredients({
         />
       ))}
       <button
-        className='flex justify-center items-center rounded p-2 m-1 bg-white min-w-full'
-        onClick={handleAddIngredientInput}
+        className='flex justify-center items-center rounded p-2 m-1 bg-white min-w-full font-black'
+        onClick={handleAddAnotherIngredient}
         type='button'
       >
         + Add Ingredient

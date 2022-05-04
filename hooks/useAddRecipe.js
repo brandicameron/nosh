@@ -5,7 +5,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 export const useAddRecipe = () => {
   // const { userUID } = useUser();
 
-  const addRecipe = async (recipeData) => {
+  const addRecipeToFirebase = async (recipeData) => {
     await addDoc(collection(db, 'recipes'), {
       cookHour: recipeData.cookHour,
       cookMin: recipeData.cookMin,
@@ -21,5 +21,5 @@ export const useAddRecipe = () => {
     });
   };
 
-  return { addRecipe };
+  return { addRecipeToFirebase };
 };

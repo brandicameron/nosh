@@ -16,9 +16,9 @@ export default function IngredientInput({
         </label>
         <input
           className='w-28 rounded p-1.5 mb-5'
-          type='text'
+          type='number'
           name='ingAmount'
-          value={ing.ingAmount}
+          value={ing.ingAmount || ''}
           onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}
         />
         <select

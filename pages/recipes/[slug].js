@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { db } from '../../firebase/config';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useState, useRef, useEffect } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Ingredient from '../../components/Ingredient';
@@ -39,9 +39,10 @@ export default function Recipe({ recipe }) {
     <main className='flex h-screen gap-10 px-8'>
       <Head>
         <title>Nosh | {recipe.title}</title>
-        <meta name='description' content='Your family recipes, easy to share and maintain.' />
+        <meta name='description' content={`Whatcha cooking today? How about ${recipe.title}?`} />
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
-        <link rel='icon' href='/favicon.ico' />
+        <meta property='og:title' content={`Try making ${recipe.title} today!`} />
+        <meta property='og:image' content={recipe.featureImg} />
       </Head>
       {/* only show sidebar if user logged in & has items added to menu */}
       <nav className='bg-neutral-100 w-6/12 h-3/4 lg:h-5/6'>
@@ -169,7 +170,7 @@ export default function Recipe({ recipe }) {
 
       <section className='bg-neutral-100 w-10/12 overflow-auto h-3/4 lg:h-5/6 pb-14'>
         <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
-          {recipe.preheat ? `Preheat ${recipe.preheat}°` : 'Instructions'}
+          {recipe.preheat ? `Preheat to ${recipe.preheat}°` : 'Instructions'}
         </h2>
 
         <ul className='space-y-4 p-4 overflow-y-scroll'>

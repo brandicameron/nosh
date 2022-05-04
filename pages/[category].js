@@ -15,7 +15,6 @@ export default function Category({ recipes }) {
         <title>Nosh | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
         <meta name='description' content='Your family recipes, easy to share and maintain.' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <h1 className='text-3xl text-center font-black capitalize tracking-tight'>{category}</h1>

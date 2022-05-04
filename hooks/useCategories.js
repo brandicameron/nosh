@@ -1,4 +1,5 @@
 export const useCategories = () => {
+  // Must also make changes in [category].js under getStaticPaths
   const categories = [
     'appetizers',
     'sauces',

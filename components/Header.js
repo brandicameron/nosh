@@ -42,15 +42,14 @@ export default function Header() {
         ))}
       </ul>
       <ul className='flex space-x-2'>
-        <li>
+        <li className='mr-1'>
           <form className='relative' role='search'>
             <input
-              className='rounded-md p-1 pl-3 text-indigo-600 w-56'
+              className='appearance-none p-1 pl-3 w-44 text-indigo-600 lg:w-56 lg:rounded-md'
               name='search'
               type='search'
               value={searchTerm}
               title='Search recipes.'
-              placeholder='Search recipes...'
               aria-label='Search recipes.'
               onChange={handleSearchInput}
             />

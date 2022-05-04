@@ -36,7 +36,7 @@ export default function Recipe({ recipe }) {
   }, []);
 
   return (
-    <main className='flex h-screen gap-10 px-8'>
+    <main className='flex flex-col h-full gap-10 px-4 pb-20 lg:flex-row lg:px-8 lg:pb-0'>
       <Head>
         <title>Nosh | {recipe.title}</title>
         <meta name='description' content={`Whatcha cooking today? How about ${recipe.title}?`} />
@@ -45,7 +45,7 @@ export default function Recipe({ recipe }) {
         <meta property='og:image' content={recipe.featureImg} />
       </Head>
       {/* only show sidebar if user logged in & has items added to menu */}
-      <nav className='bg-neutral-100 w-6/12 h-3/4 lg:h-5/6'>
+      <nav className='hidden bg-neutral-100 w-6/12 h-3/4 lg:h-5/6 lg:block'>
         <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
           On the Menu
         </h2>
@@ -74,11 +74,11 @@ export default function Recipe({ recipe }) {
         </ul>
       </nav>
 
-      <section className='flex flex-col items-center w-screen'>
+      <section className='flex flex-col items-center w-full px-1 lg:w-screen lg:p-0'>
         <header className='flex space-x-3'>
           {recipe.featureImg && (
             <img
-              className='w-1/2 h-40 object-cover rounded-xl'
+              className='w-1/3 h-40 object-cover rounded-xl lg:w-1/2'
               src={recipe.featureImg}
               alt={recipe.title}
             />
@@ -98,7 +98,7 @@ export default function Recipe({ recipe }) {
                   src={recipe.addedByImg}
                   alt={recipe.title}
                 />
-                <figcaption className='text-neutral-500 text-sm'>Added by Brandi</figcaption>
+                <figcaption className='text-neutral-500 text-sm'>by Brandi</figcaption>
               </figure>
             )}
 
@@ -127,34 +127,37 @@ export default function Recipe({ recipe }) {
             </div>
           </div>
         </header>
-        <ul className='flex space-x-6 w-full border-y border-neutral-300 py-2 my-6 text-sm'>
-          <li className='flex items-center'>
-            <FiClock className='mr-1' />
-            Prep {recipe.prepHour && recipe.prepHour} {recipe.prepHour && 'Hour'}{' '}
-            {recipe.prepMin && recipe.prepMin} Mins
+        <ul className='flex justify-around w-full border-y border-neutral-300 py-2 my-6 text-sm leading-tight'>
+          <li className='flex items-center flex-col lg:flex-row'>
+            <FiClock className='mr-1 mb-1 lg:mb-0' />
+            <span className='block lg:mr-1'>Prep</span> {recipe.prepHour && recipe.prepHour}{' '}
+            {recipe.prepHour && 'Hour'} {recipe.prepMin && recipe.prepMin} Mins
           </li>
-          <li className='flex items-center'>
-            <FiClock className='mr-1' />
-            Cook {recipe.cookHour && recipe.cookHour} {recipe.cookHour && 'Hour'}{' '}
-            {recipe.cookMin && recipe.cookMin} {recipe.cookMin && 'Mins'}
+          <li className='flex items-center flex-col lg:flex-row'>
+            <FiClock className='mr-1 mb-1 lg:mb-0' />
+            <span className='block lg:mr-1'>Cook</span> {recipe.cookHour && recipe.cookHour}{' '}
+            {recipe.cookHour && 'Hour'} {recipe.cookMin && recipe.cookMin}{' '}
+            {recipe.cookMin && 'Mins'}
           </li>
-          <li className='flex items-center'>
-            <FiClock className='mr-1' />
-            Total{' '}
-            {totalHours && (
-              <span className='ml-1'>
-                {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}
-              </span>
-            )}
-            {totalMins > 1 && (
-              <span className='ml-1'>
-                {totalMins} {totalMins > 1 ? 'Mins' : 'Min'}
-              </span>
-            )}
+          <li className='flex items-center flex-col lg:flex-row'>
+            <FiClock className='mr-1 mb-1 lg:mb-0' />
+            <span className='lg:flex'>
+              <span className='block text-center lg:mr-1'>Total</span>
+              {totalHours && (
+                <span className='ml-1'>
+                  {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}
+                </span>
+              )}
+              {totalMins > 1 && (
+                <span className='ml-1'>
+                  {totalMins} {totalMins > 1 ? 'Mins' : 'Min'}
+                </span>
+              )}
+            </span>
           </li>
         </ul>
 
-        <div className='overflow-auto w-full h-3/4 lg:h-5/6 pb-14'>
+        <div className='overflow-auto w-full h-3/4 lg:h-5/6 lg:pb-14'>
           <ul className='space-y-2 w-full overflow-y-scroll'>
             {recipe.ingredients.map((ing) => (
               <Ingredient
@@ -168,12 +171,12 @@ export default function Recipe({ recipe }) {
         </div>
       </section>
 
-      <section className='bg-neutral-100 w-10/12 overflow-auto h-3/4 lg:h-5/6 pb-14'>
+      <section className='bg-neutral-100 w-full min-h-min lg:h-5/6 lg:w-10/12 lg:overflow-auto'>
         <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
           {recipe.preheat ? `Preheat to ${recipe.preheat}°` : 'Instructions'}
         </h2>
 
-        <ul className='space-y-4 p-4 overflow-y-scroll'>
+        <ul className='space-y-4 p-4 lg:overflow-y-scroll'>
           {recipe.instructions.map((step, index) => (
             <li key={step.step} className='p-2'>
               <span className='block text-indigo-600 font-black text-2xl'>Step {index + 1}</span>{' '}

@@ -115,6 +115,7 @@ export default function AddRecipe() {
       { instructions: instructions },
       { tags: tags }
     );
+
     setRecipeData(fullRecipe);
 
     // reset form inputs
@@ -138,10 +139,6 @@ export default function AddRecipe() {
     });
 
     setInstructions([{ step: '' }]);
-    saveToFirebase();
-  };
-
-  const saveToFirebase = () => {
     addRecipeToFirebase(recipeData);
   };
 

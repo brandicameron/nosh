@@ -182,7 +182,7 @@ export default function Recipe({ recipe }) {
 
         <section className='bg-neutral-100 w-full lg:h-full lg:w-10/12 lg:overflow-auto'>
           <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
-            {recipe.preheat ? `Preheat to ${recipe.preheat}°` : 'Instructions'}
+            {recipe.preheat ? `Preheat Oven to ${recipe.preheat}°` : 'Instructions'}
           </h2>
 
           <ul className='space-y-4 p-4 h-full lg:overflow-y-scroll lg:pb-20'>

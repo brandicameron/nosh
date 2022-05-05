@@ -36,6 +36,14 @@ input::placeholder {
   font-size: 0.9rem;
 }
 
+label[for='title']::before,
+label[for='serves']::before {
+  content: '*';
+  color: rgb(255, 98, 98);
+  font-weight: bold;
+  padding-right: 3px;
+}
+
 button {
   border: none;
 }

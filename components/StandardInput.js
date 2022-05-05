@@ -7,6 +7,7 @@ export default function StandardInput({
   placeholder,
   value,
   handleInputChange,
+  boolean,
 }) {
   return (
     <>
@@ -20,6 +21,7 @@ export default function StandardInput({
         placeholder={placeholder}
         value={value}
         onChange={handleInputChange}
+        required={boolean || 'false'}
       />
     </>
   );

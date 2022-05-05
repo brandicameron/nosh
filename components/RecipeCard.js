@@ -22,9 +22,9 @@ export default function RecipeCard({ recipe }) {
         aria-label='Add or Remove From Menu'
       >
         {addToMenu ? (
-          <RiBookmarkFill className='text-white text-2xl' />
+          <RiBookmarkFill className='text-white text-3xl lg:text-2xl' />
         ) : (
-          <RiBookmarkLine className='text-white text-2xl' />
+          <RiBookmarkLine className='text-white text-3xl lg:text-2xl' />
         )}
       </button>
       <Link href={`/recipes/${recipe.slug}`}>

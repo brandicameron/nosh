@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { db } from '../../firebase/config';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useState, useRef, useEffect } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Ingredient from '../../components/Ingredient';
@@ -36,16 +36,15 @@ export default function Recipe({ recipe }) {
   }, []);
 
   return (
-    <main className='flex flex-col h-screen mx-auto gap-10 px-4 pb-20 lg:flex-row lg:px-8 lg:pb-0 lg:max-w-7xl'>
+    <main className='flex h-screen gap-10 px-8'>
       <Head>
         <title>Nosh | {recipe.title}</title>
-        <meta name='description' content={`Whatcha cooking today? How about ${recipe.title}?`} />
+        <meta name='description' content='Your family recipes, easy to share and maintain.' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
-        <meta property='og:title' content={`Try making ${recipe.title} today!`} />
-        <meta property='og:image' content={recipe.featureImg} />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       {/* only show sidebar if user logged in & has items added to menu */}
-      <nav className='hidden bg-neutral-100 w-6/12 h-full lg:block'>
+      <nav className='bg-neutral-100 w-6/12 h-3/4 lg:h-5/6'>
         <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
           On the Menu
         </h2>
@@ -74,11 +73,11 @@ export default function Recipe({ recipe }) {
         </ul>
       </nav>
 
-      <section className='flex flex-col items-center w-full px-1 lg:w-screen lg:p-0'>
+      <section className='flex flex-col items-center w-screen'>
         <header className='flex space-x-3'>
           {recipe.featureImg && (
             <img
-              className='w-1/3 h-40 object-cover rounded-xl lg:w-1/2'
+              className='w-1/2 h-40 object-cover rounded-xl'
               src={recipe.featureImg}
               alt={recipe.title}
             />
@@ -86,7 +85,7 @@ export default function Recipe({ recipe }) {
           <div className='flex flex-col justify-between'>
             <h1
               className={`font-black leading-none ${
-                title.current.length > 20 ? 'text-[28px]' : 'text-4xl'
+                title.current.length > 24 ? 'text-[28px]' : 'text-4xl'
               }`}
             >
               {recipe.title}
@@ -98,7 +97,7 @@ export default function Recipe({ recipe }) {
                   src={recipe.addedByImg}
                   alt={recipe.title}
                 />
-                <figcaption className='text-neutral-500 text-sm'>by Brandi</figcaption>
+                <figcaption className='text-neutral-500 text-sm'>Added by Brandi</figcaption>
               </figure>
             )}
 
@@ -127,37 +126,34 @@ export default function Recipe({ recipe }) {
             </div>
           </div>
         </header>
-        <ul className='flex justify-around w-full border-y border-neutral-300 py-2 my-6 text-sm leading-tight'>
-          <li className='flex items-center flex-col lg:flex-row'>
-            <FiClock className='mr-1 mb-1 lg:mb-0' />
-            <span className='block lg:mr-1'>Prep</span> {recipe.prepHour && recipe.prepHour}{' '}
-            {recipe.prepHour && 'Hour'} {recipe.prepMin && recipe.prepMin} Mins
+        <ul className='flex space-x-6 w-full border-y border-neutral-300 py-2 my-6 text-sm'>
+          <li className='flex items-center'>
+            <FiClock className='mr-1' />
+            Prep {recipe.prepHour && recipe.prepHour} {recipe.prepHour && 'Hour'}{' '}
+            {recipe.prepMin && recipe.prepMin} Mins
           </li>
-          <li className='flex items-center flex-col lg:flex-row'>
-            <FiClock className='mr-1 mb-1 lg:mb-0' />
-            <span className='block lg:mr-1'>Cook</span> {recipe.cookHour && recipe.cookHour}{' '}
-            {recipe.cookHour && 'Hour'} {recipe.cookMin && recipe.cookMin}{' '}
-            {recipe.cookMin && 'Mins'}
+          <li className='flex items-center'>
+            <FiClock className='mr-1' />
+            Cook {recipe.cookHour && recipe.cookHour} {recipe.cookHour && 'Hour'}{' '}
+            {recipe.cookMin && recipe.cookMin} {recipe.cookMin && 'Mins'}
           </li>
-          <li className='flex items-center flex-col lg:flex-row'>
-            <FiClock className='mr-1 mb-1 lg:mb-0' />
-            <span className='lg:flex'>
-              <span className='block text-center lg:mr-1'>Total</span>
-              {totalHours && (
-                <span className='ml-1'>
-                  {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}
-                </span>
-              )}
-              {totalMins > 1 && (
-                <span className='ml-1'>
-                  {totalMins} {totalMins > 1 ? 'Mins' : 'Min'}
-                </span>
-              )}
-            </span>
+          <li className='flex items-center'>
+            <FiClock className='mr-1' />
+            Total{' '}
+            {totalHours && (
+              <span className='ml-1'>
+                {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}
+              </span>
+            )}
+            {totalMins > 1 && (
+              <span className='ml-1'>
+                {totalMins} {totalMins > 1 ? 'Mins' : 'Min'}
+              </span>
+            )}
           </li>
         </ul>
 
-        <div className='overflow-auto w-full h-3/4 lg:h-5/6 lg:pb-14'>
+        <div className='overflow-auto w-full h-3/4 lg:h-5/6 pb-14'>
           <ul className='space-y-2 w-full overflow-y-scroll'>
             {recipe.ingredients.map((ing) => (
               <Ingredient
@@ -171,12 +167,12 @@ export default function Recipe({ recipe }) {
         </div>
       </section>
 
-      <section className='bg-neutral-100 w-full lg:h-full lg:w-10/12 lg:overflow-auto'>
+      <section className='bg-neutral-100 w-10/12 overflow-auto h-3/4 lg:h-5/6 pb-14'>
         <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
-          {recipe.preheat ? `Preheat to ${recipe.preheat}°` : 'Instructions'}
+          {recipe.preheat ? `Preheat ${recipe.preheat}°` : 'Instructions'}
         </h2>
 
-        <ul className='space-y-4 p-4 h-full lg:overflow-y-scroll lg:pb-20'>
+        <ul className='space-y-4 p-4 overflow-y-scroll'>
           {recipe.instructions.map((step, index) => (
             <li key={step.step} className='p-2'>
               <span className='block text-indigo-600 font-black text-2xl'>Step {index + 1}</span>{' '}
@@ -194,28 +190,29 @@ export async function getStaticPaths() {
 
   const querySnapshot = await getDocs(collection(db, 'recipes'));
   querySnapshot.forEach((doc) => {
-    paths.push(doc.data().slug);
+    paths.push(doc.id);
   });
 
   return {
     fallback: false,
-    paths: paths.map((slug) => ({ params: { slug: slug } })),
+    paths: paths.map((id) => ({ params: { id: id } })),
   };
 }
 
 export async function getStaticProps(context) {
   // Do simple queries from fb instead?
-  const recipeSlug = context.params.slug;
+  const recipeId = context.params.id;
   let recipe = {};
 
-  const recipesRef = collection(db, 'recipes');
-  const q = query(recipesRef, where('slug', '==', recipeSlug));
+  const docRef = doc(db, 'recipes', `${recipeId}`);
+  const docSnap = await getDoc(docRef);
 
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    // console.log(doc.id, ' => ', doc.data());
-    recipe = { id: doc.id, ...doc.data() };
-  });
+  if (docSnap.exists()) {
+    console.log('Document data:', docSnap.data());
+    recipe = { id: doc.id, ...docSnap.data() };
+  } else {
+    console.log('No such document!');
+  }
 
   return {
     props: {

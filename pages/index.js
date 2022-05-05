@@ -24,7 +24,7 @@ export default function Home({ recipes }) {
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
         <meta name='author' content='Brandi Cameron | hello@brandicameron.com' />
         <meta name='theme-color' content='#ffffff' />
-        <meta property='og:title' content='Your family recipes, easy to share and maintain.' />
+        <meta property='og:title' content='Cameron family recipes, all in one place.' />
         <meta property='og:image' content='/nosh-share.jpg' />
         <link rel='icon' href='/favicon.ico' />
       </Head>

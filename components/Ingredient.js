@@ -3,12 +3,12 @@ export default function Ingredient({ ing, servings, defaultServings }) {
   const adjustIngredientAmounts = (amount) => {
     const singleServing = amount / defaultServings.current;
     let newAmount = singleServing * servings;
-    const splitAmount = newAmount.toString().split('.');
-    const integer = splitAmount[0] === '0' ? '' : splitAmount[0];
-    const fractional = '.' + splitAmount[1];
 
     if (newAmount.toString().includes('.')) {
-      if (fractional >= 0.0625 && fractional <= 0.1875) {
+      const splitAmount = newAmount.toString().split('.');
+      const integer = splitAmount[0] === '0' ? '' : splitAmount[0];
+      const fractional = '.' + splitAmount[1];
+      if (fractional >= 0.001 && fractional <= 0.1875) {
         return integer + ' ' + '1/8';
       } else if (fractional >= 0.1876 && fractional <= 0.2915) {
         return integer + ' ' + '1/4';
@@ -20,10 +20,19 @@ export default function Ingredient({ ing, servings, defaultServings }) {
         return integer + ' ' + '2/3';
       } else if (fractional >= 0.709 && fractional <= 0.875) {
         return integer + ' ' + '3/4';
-      } else if (fractional >= 0.876 && fractional < 1.0625) {
-        return parseInt(integer) + 1;
+      } else if (fractional >= 0.876 && fractional <= 1) {
+        if (integer === '') {
+          return integer + 1;
+        }
+        if (integer > 0) {
+          return parseInt(integer) + 1;
+        }
+      } else {
+        return newAmount;
       }
-    } else {
+    }
+
+    if (!newAmount.toString().includes('.')) {
       return newAmount;
     }
   };

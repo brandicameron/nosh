@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import RecipeCard from '../components/RecipeCard';
+import { getAllCategories } from '../lib/categories';
 
 export default function Category({ recipes }) {
   const router = useRouter();
@@ -28,21 +29,10 @@ export default function Category({ recipes }) {
 }
 
 export async function getStaticPaths() {
-  const categories = [
-    'appetizers',
-    'sauces',
-    'soups',
-    'entrees',
-    'sides',
-    'desserts',
-    'breakfast',
-    'drinks',
-  ];
-  let paths = categories;
-
+  const paths = getAllCategories();
   return {
+    paths,
     fallback: false,
-    paths: paths.map((cat) => ({ params: { category: cat } })),
   };
 }
 

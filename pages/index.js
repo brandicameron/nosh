@@ -29,14 +29,14 @@ export default function Home({ recipes }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Category state={recipes} title={'All Recipes >'} />
-      {/* <Category state={filteredRecipes.appetizers} title={'Appetizers >'} /> */}
-      <Category state={filteredRecipes.sauces} title={'Sauces >'} />
-      {/* <Category state={filteredRecipes.soups} title={'Soups >'} /> */}
-      <Category state={filteredRecipes.entrees} title={'Entrees >'} />
-      <Category state={filteredRecipes.sides} title={'Sides >'} />
-      <Category state={filteredRecipes.desserts} title={'Desserts >'} />
-      <Category state={filteredRecipes.breakfast} title={'Breakfast >'} />
+      <Category state={recipes} title={'All Recipes'} />
+      {<Category state={filteredRecipes.appetizers} title={'Appetizers'} />}
+      <Category state={filteredRecipes.sauces} title={'Sauces'} />
+      <Category state={filteredRecipes.soups} title={'Soups'} />
+      <Category state={filteredRecipes.entrees} title={'Entrees'} />
+      <Category state={filteredRecipes.sides} title={'Sides'} />
+      <Category state={filteredRecipes.desserts} title={'Desserts'} />
+      <Category state={filteredRecipes.breakfast} title={'Breakfast'} />
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../../firebase/config';
@@ -62,21 +63,15 @@ export default function Recipe({ recipe }) {
             {/* future loop through items added to menu */}
             <li className='flex items-center border-b last:border-b-0 py-2 leading-tight'>
               {recipe.featureImg && (
-                <img
-                  className='rounded-full w-8 h-8 object-cover border border-neutral-200 mr-3'
-                  src={recipe.featureImg}
-                  alt={recipe.title}
-                />
-              )}
-              {recipe.title}
-            </li>
-            <li className='flex items-center border-b last:border-b-0 py-2 leading-tight'>
-              {recipe.featureImg && (
-                <img
-                  className='rounded-full w-8 h-8 object-cover border border-neutral-200 mr-3'
-                  src={recipe.featureImg}
-                  alt={recipe.title}
-                />
+                <div className='mr-2'>
+                  <Image
+                    src={recipe.featureImg}
+                    alt={recipe.title}
+                    width={30}
+                    height={30}
+                    className='rounded-full object-cover border border-neutral-200'
+                  />
+                </div>
               )}
               {recipe.title}
             </li>
@@ -86,10 +81,12 @@ export default function Recipe({ recipe }) {
         <section className='flex flex-col items-center w-full px-1 lg:w-screen lg:p-0'>
           <header className='flex space-x-3'>
             {recipe.featureImg && (
-              <img
-                className='w-1/3 h-40 object-cover rounded-xl lg:w-1/2'
+              <Image
                 src={recipe.featureImg}
                 alt={recipe.title}
+                width={150}
+                height={160}
+                className='object-cover rounded-xl lg:w-1/2'
               />
             )}
             <div className='flex flex-col justify-between'>
@@ -102,11 +99,15 @@ export default function Recipe({ recipe }) {
               </h1>
               {recipe.addedByImg && (
                 <figure className='flex items-center'>
-                  <img
-                    className='rounded-full w-8 h-8 object-cover border border-neutral-200 mr-2'
-                    src={recipe.addedByImg}
-                    alt={recipe.title}
-                  />
+                  <div className='mr-2 pt-1'>
+                    <Image
+                      src={recipe.addedByImg}
+                      alt={recipe.title}
+                      width={30}
+                      height={30}
+                      className='rounded-full object-cover border border-neutral-200'
+                    />
+                  </div>
                   <figcaption className='text-neutral-500 text-sm'>by {recipe.addedBy}</figcaption>
                 </figure>
               )}

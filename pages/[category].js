@@ -35,13 +35,6 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-// export async function getStaticPaths() {
-//   const paths = getAllCategories();
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
 
 export async function getStaticProps() {
   let recipes = [];

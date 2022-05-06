@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { RiBookmarkLine } from 'react-icons/ri';
 import { RiBookmarkFill } from 'react-icons/ri';
-import Link from 'next/link';
 
 export default function RecipeCard({ recipe }) {
   const [addToMenu, setAddToMenu] = useState(false);
@@ -11,7 +12,7 @@ export default function RecipeCard({ recipe }) {
   };
 
   return (
-    <li className='relative shadow-lg text-gradient rounded-xl transition-transform duration-50 ease-in-out hover:scale-105'>
+    <li className='relative h-32 w-52 shadow-lg text-gradient rounded-xl transition-transform duration-50 ease-in-out hover:scale-105'>
       <h3 className='absolute bottom-1 left-2 text-xl font-black text-white leading-tight'>
         {recipe.title}
       </h3>
@@ -29,12 +30,12 @@ export default function RecipeCard({ recipe }) {
       </button>
       <Link href={`/recipes/${recipe.slug}`}>
         <a>
-          <img
-            className='w-56 h-32 object-cover rounded-xl mix-blend-overlay cursor-pointer'
+          <Image
             src={recipe.featureImg}
             alt={recipe.title}
-            width={225}
-            h={125}
+            width={208}
+            height={128}
+            className='mix-blend-overlay object-cover rounded-xl cursor-pointer'
           />
         </a>
       </Link>

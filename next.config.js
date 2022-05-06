@@ -8,4 +8,8 @@ module.exports = {
   images: {
     domains: ['firebasestorage.googleapis.com', 'bc-portfolio.s3.amazonaws.com'],
   },
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
 };

@@ -1,5 +1,4 @@
 export const useCategories = () => {
-  // Must also make changes in [category].js under getStaticPaths
   const categories = [
     'appetizers',
     'sauces',
@@ -10,6 +9,5 @@ export const useCategories = () => {
     'breakfast',
     'drinks',
   ];
-
   return { categories };
 };

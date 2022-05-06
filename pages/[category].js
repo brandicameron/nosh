@@ -29,12 +29,19 @@ export default function Category({ recipes }) {
 }
 
 export async function getStaticPaths() {
-  const paths = getAllCategories();
+  const { paths } = getAllCategories();
   return {
     paths,
     fallback: false,
   };
 }
+// export async function getStaticPaths() {
+//   const paths = getAllCategories();
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 export async function getStaticProps() {
   let recipes = [];

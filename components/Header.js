@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCategories } from '../hooks/useCategories';
+import { getAllCategories } from '../lib/categories';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { RiAddCircleLine } from 'react-icons/ri';
 import { CgSearch } from 'react-icons/cg';
@@ -9,6 +10,13 @@ import { CgSearch } from 'react-icons/cg';
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
   const { categories } = useCategories();
+  // const [headerCategories, setHeaderCategories] = useState([]);
+
+  // const allCategories = getAllCategories();
+  // const allHeaderCategories = allCategories.map((obj, index) => {
+  //   setHeaderCategories((prev) => [...prev, obj.params.category]);
+  // });
+  // console.log(headerCategories);
 
   const handleSearchInput = (e) => {
     setSearchTerm(e.target.value);

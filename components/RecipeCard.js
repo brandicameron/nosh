@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { RiBookmarkLine } from 'react-icons/ri';
 import { RiBookmarkFill } from 'react-icons/ri';
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ handleSetScrollPosition, recipe }) {
   const [addToMenu, setAddToMenu] = useState(false);
 
   const handleAddRemoveMenu = () => {
@@ -36,6 +36,7 @@ export default function RecipeCard({ recipe }) {
             width={208}
             height={128}
             className='mix-blend-overlay object-cover rounded-xl cursor-pointer'
+            onClick={handleSetScrollPosition}
           />
         </a>
       </Link>

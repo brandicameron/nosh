@@ -1,10 +1,11 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import Category from '../components/Category';
 
 export default function Home({ recipes }) {
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [filteredRecipes, setFilteredRecipes] = useState({
     appetizers: recipes.filter((recipe) => recipe.tags.find((el) => el === 'appetizers')),
     sauces: recipes.filter((recipe) => recipe.tags.find((el) => el === 'sauces')),
@@ -30,7 +31,7 @@ export default function Home({ recipes }) {
       </Head>
 
       <Category state={recipes} title={'All Recipes'} />
-      {<Category state={filteredRecipes.appetizers} title={'Appetizers'} />}
+      <Category state={filteredRecipes.appetizers} title={'Appetizers'} />
       <Category state={filteredRecipes.sauces} title={'Sauces'} />
       <Category state={filteredRecipes.soups} title={'Soups'} />
       <Category state={filteredRecipes.entrees} title={'Entrees'} />

@@ -1,7 +1,7 @@
-import { useCategories } from '../hooks/useCategories';
+import { getAllCategories } from '../lib/categories';
 
 export default function CategoryInput({ handleCategoriesChange }) {
-  const { categories } = useCategories();
+  const { categories } = getAllCategories();
 
   return (
     <fieldset className='flex justify-center items-center flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>

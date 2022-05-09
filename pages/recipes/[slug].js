@@ -140,19 +140,20 @@ export default function Recipe({ recipe }) {
           <ul className='flex justify-around w-full border-y border-neutral-300 py-2 my-6 text-sm leading-tight'>
             <li className='flex items-center flex-col lg:flex-row'>
               <FiClock className='mr-1 mb-1 lg:mb-0' />
-              <span className='block lg:mr-1'>Prep</span> {recipe.prepHour && recipe.prepHour}{' '}
-              {recipe.prepHour && 'Hour'} {recipe.prepMin && recipe.prepMin} Mins
+              <span className='block lg:mr-1 font-black'>Prep</span>{' '}
+              {recipe.prepHour && recipe.prepHour} {recipe.prepHour && 'Hour'}{' '}
+              {recipe.prepMin && recipe.prepMin} Mins
             </li>
             <li className='flex items-center flex-col lg:flex-row'>
               <FiClock className='mr-1 mb-1 lg:mb-0' />
-              <span className='block lg:mr-1'>Cook</span> {recipe.cookHour && recipe.cookHour}{' '}
-              {recipe.cookHour && 'Hour'} {recipe.cookMin && recipe.cookMin}{' '}
-              {recipe.cookMin && 'Mins'}
+              <span className='block lg:mr-1 font-black'>Cook</span>{' '}
+              {recipe.cookHour && recipe.cookHour} {recipe.cookHour && 'Hour'}{' '}
+              {recipe.cookMin && recipe.cookMin} {recipe.cookMin && 'Mins'}
             </li>
             <li className='flex items-center flex-col lg:flex-row'>
               <FiClock className='mr-1 mb-1 lg:mb-0' />
               <span className='lg:flex'>
-                <span className='block text-center lg:mr-1'>Total</span>
+                <span className='block text-center font-black'>Total</span>
                 {totalHours && (
                   <span className='ml-1'>
                     {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}

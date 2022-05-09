@@ -25,7 +25,7 @@ export default function AddRecipe() {
     prepMin: '',
     cookHour: '',
     cookMin: '',
-    tags: [],
+    tags: [all],
   });
   const [ingredients, setIngredients] = useState([
     {

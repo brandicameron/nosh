@@ -18,8 +18,9 @@ export default function Category({ state, title }) {
 
   return (
     <section>
-      <h2 className='text-2xl ml-9 font-black tracking-tight'>
-        {title} <span className='text-neutral-500 text-lg pl-1'>&#62;</span>
+      <h2 className='text-2xl ml-9 font-black tracking-tight capitalize'>
+        {title === 'all' ? 'All Recipes' : title}{' '}
+        <span className='text-neutral-500 text-lg pl-1'>&#62;</span>
       </h2>
       <div
         onScroll={getScrollPosition}

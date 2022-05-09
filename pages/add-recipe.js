@@ -11,7 +11,7 @@ import { useStorage } from '../hooks/useStorage';
 export default function AddRecipe() {
   const { addRecipeToFirebase } = useAddRecipe();
   const { uploadImage } = useStorage();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([all]);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
     'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2Fno-image.jpg?alt=media&token=eb5ed515-b8c4-402e-a895-86586316674a'
@@ -25,7 +25,7 @@ export default function AddRecipe() {
     prepMin: '',
     cookHour: '',
     cookMin: '',
-    tags: [all],
+    tags: [],
   });
   const [ingredients, setIngredients] = useState([
     {

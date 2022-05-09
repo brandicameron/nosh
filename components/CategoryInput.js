@@ -8,7 +8,7 @@ export default function CategoryInput({ handleCategoriesChange }) {
       <legend className='text-white text-3xl font-black px-2'>
         Category <small className='text-xs font-normal'>*Required</small>
       </legend>
-      {categories.map((category) => (
+      {categories.slice(1).map((category) => (
         <div className='relative' key={category}>
           <input
             className='peer absolute w-[100px] h-[40px] top-1 opacity-0 cursor-pointer'

@@ -9,7 +9,6 @@ export default function Home({ recipes }) {
 
   const filterRecipes = (category) => {
     let filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
-    console.log('filered recipes');
     return filtered;
   };
 

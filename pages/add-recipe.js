@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { RiFileUploadFill } from 'react-icons/ri';
+import { useState, useEffect, useMemo } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { RiFileUploadLine } from 'react-icons/ri';
 import CategoryInput from '../components/CategoryInput';
 import AddIngredients from '../components/AddIngredients';
 import StandardInput from '../components/StandardInput';
@@ -7,10 +8,13 @@ import EmbeddedLabelInput from '../components/EmbeddedLabelInput';
 import AddInstructions from '../components/AddInstructions';
 import { useAddRecipe } from '../hooks/useAddRecipe';
 import { useStorage } from '../hooks/useStorage';
+import { getAllCategories } from '../lib/categories';
 
 export default function AddRecipe() {
+  const { categories } = getAllCategories();
   const { addRecipeToFirebase } = useAddRecipe();
   const { uploadImage } = useStorage();
+  const [files, setFiles] = useState([]);
   const [tags, setTags] = useState(['all']);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
@@ -50,6 +54,40 @@ export default function AddRecipe() {
       });
     }
   };
+
+  const acceptStyle = {
+    backgroundColor: '#d6fdd6',
+  };
+
+  const rejectStyle = {
+    borderColor: '#ff1744',
+  };
+
+  const { acceptedFiles, getRootProps, getInputProps, isDragAccept, isDragReject } = useDropzone({
+    accept: { 'image/*': [] },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign({
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+      uploadImage(acceptedFiles, setFeatureImgURL);
+    },
+  });
+
+  const style = useMemo(
+    () => ({
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isDragAccept, isDragReject]
+  );
+
+  useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
 
   const handleListInputChange = (e, index, state, setState) => {
     const { name, value, type } = e.target;
@@ -119,6 +157,8 @@ export default function AddRecipe() {
     setRecipeData(fullRecipe);
 
     // reset form inputs
+    setFiles([]);
+
     setIngredients([
       {
         ingAmount: '',
@@ -139,6 +179,7 @@ export default function AddRecipe() {
     });
 
     setInstructions([{ step: '' }]);
+    console.log(recipeData);
     addRecipeToFirebase(recipeData);
   };
 
@@ -153,7 +194,7 @@ export default function AddRecipe() {
           name='title'
           type='text'
           label='Title'
-          placeholder='Your Great Recipe'
+          placeholder="Grandma's Famous Cookies"
           value={recipeData.title}
           handleInputChange={handleInputChange}
           boolean={true}
@@ -161,13 +202,27 @@ export default function AddRecipe() {
         <label className='text-white' htmlFor='featureImg'>
           Feature Image
         </label>
-        <div className='flex'>
-          <input
-            onChange={(e) => uploadImage(e, setFeatureImgURL)}
-            className='mb-5 text-white'
-            type='file'
-            name='featureImg'
-          />
+        <div
+          {...getRootProps({ style })}
+          className='flex justify-around items-center text-neutral-500 bg-white border-2 border-dashed border-gray-400 p-5 rounded mb-4'
+        >
+          <div className='flex flex-col justify-center items-center'>
+            <input {...getInputProps()} />
+            <RiFileUploadLine className='text-3xl text-neutral-500' />
+            <p>Drag and drop, or click to select files</p>
+          </div>
+          {files[0] !== undefined && (
+            <img
+              width={96}
+              height={64}
+              src={files[0].preview}
+              alt=''
+              onLoad={() => {
+                URL.revokeObjectURL(files[0].preview);
+              }}
+              className='rounded w-24 h-16 object-cover'
+            />
+          )}
         </div>
         <StandardInput
           name='serves'

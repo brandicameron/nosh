@@ -8,10 +8,8 @@ import EmbeddedLabelInput from '../components/EmbeddedLabelInput';
 import AddInstructions from '../components/AddInstructions';
 import { useAddRecipe } from '../hooks/useAddRecipe';
 import { useStorage } from '../hooks/useStorage';
-import { getAllCategories } from '../lib/categories';
 
 export default function AddRecipe() {
-  const { categories } = getAllCategories();
   const { addRecipeToFirebase } = useAddRecipe();
   const { uploadImage } = useStorage();
   const [files, setFiles] = useState([]);
@@ -208,7 +206,7 @@ export default function AddRecipe() {
         >
           <div className='flex flex-col justify-center items-center'>
             <input {...getInputProps()} />
-            <RiFileUploadLine className='text-3xl text-neutral-500' />
+            <RiFileUploadLine className='text-3xl text-neutral-400' />
             <p>Drag and drop, or click to select files</p>
           </div>
           {files[0] !== undefined && (

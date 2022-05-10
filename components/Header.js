@@ -45,7 +45,7 @@ export default function Header() {
         <li className='mr-1'>
           <form className='relative' role='search'>
             <input
-              className='appearance-none p-1 pl-3 w-44 text-indigo-600 lg:w-56 lg:rounded-md'
+              className='appearance-none p-1 pl-3 text-indigo-600 lg:rounded-md'
               name='search'
               type='search'
               value={searchTerm}

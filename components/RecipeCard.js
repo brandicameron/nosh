@@ -8,7 +8,7 @@ export default function RecipeCard({ recipe }) {
       <h3 className='absolute bottom-1 left-2 text-xl font-black text-white leading-tight'>
         {recipe.title}
       </h3>
-      <AddtoMenuButton position='right-2 top-1' recipeId={recipe.id} />
+      <AddtoMenuButton position='right-2 top-1' recipe={recipe} />
       <Link href={`/recipes/${recipe.slug}`}>
         <a>
           <Image

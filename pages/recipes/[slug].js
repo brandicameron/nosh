@@ -1,5 +1,8 @@
+import { useContext } from 'react';
+import { MenuContext } from '../../MenuContext';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../../firebase/config';
@@ -11,11 +14,13 @@ import Ingredient from '../../components/Ingredient';
 import AddtoMenuButton from '../../components/AddtoMenuButton';
 
 export default function Recipe({ recipe }) {
+  const { menuItems } = useContext(MenuContext);
   const [servings, setServings] = useState(recipe.serves);
   const [totalHours, setTotalHours] = useState(recipe.prepHour + recipe.cookHour);
   const [totalMins, setTotalMins] = useState(recipe.prepMin + recipe.cookMin);
   const defaultServings = useRef(recipe.serves);
   const router = useRouter();
+  const slug = recipe.slug;
 
   const changeServings = (e) => {
     if (e.target.value === 'decrement') {
@@ -57,6 +62,7 @@ export default function Recipe({ recipe }) {
           layout='fill'
           objectFit='cover'
           className='opacity-40'
+          priority
         />
         <button
           className='absolute top-7 left-2 text-white font-black opacity-80'
@@ -64,7 +70,7 @@ export default function Recipe({ recipe }) {
         >
           <IoIosArrowBack className='h-10 w-10 lg:h-8 lg:w-8' />
         </button>
-        <AddtoMenuButton position='right-5' recipeId={recipe.id} />
+        <AddtoMenuButton position='right-5' recipe={recipe} />
         <h1 className='absolute text-white font-black text-4xl text-center max-w-[250px] lg:max-w-full'>
           {recipe.title}
         </h1>
@@ -141,26 +147,38 @@ export default function Recipe({ recipe }) {
       </aside>
 
       <section className='relative flex flex-col p-8 lg:flex-row lg:gap-8'>
-        <aside className='hidden bg-neutral-100 w-1/4 lg:block'>
+        <aside className='hidden bg-neutral-50 w-1/4 lg:block'>
           <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
             Menu
           </h2>
-          <ul className='space-y-4 p-4'>
+          <ul className='space-y-4 py-2 text-sm'>
             {/* future loop through items added to menu */}
-            <li className='flex items-center border-b last:border-b-0 py-2 leading-tight'>
-              {recipe.featureImg && (
-                <div className='mr-2'>
-                  <Image
-                    src={recipe.featureImg}
-                    alt={recipe.title}
-                    width={30}
-                    height={30}
-                    className='rounded-full object-cover border border-neutral-200'
-                  />
-                </div>
-              )}
-              {recipe.title}
-            </li>
+            {menuItems.map((item) => (
+              <Link key={item.id} href={`/recipes/${item.slug}`}>
+                <a>
+                  <li
+                    className='flex items-center border-b last:border-b-0 p-3 leading-none'
+                    style={{
+                      backgroundColor: `${slug === item.slug ? '#eef2ff' : '#fafafa'}`,
+                      fontWeight: `${slug === item.slug ? 'bold' : 'inherit'}`,
+                    }}
+                  >
+                    {item.featureImg && (
+                      <div className='mr-2 w-8 h-8 rounded-full shadow-lg aspect-square border border-neutral-200'>
+                        <Image
+                          src={item.featureImg}
+                          alt={item.title}
+                          width={32}
+                          height={32}
+                          className='object-cover object-center rounded-full'
+                        />
+                      </div>
+                    )}
+                    {item.title}
+                  </li>
+                </a>
+              </Link>
+            ))}
           </ul>
         </aside>
 
@@ -203,7 +221,8 @@ export async function getStaticPaths() {
   });
 
   return {
-    fallback: false,
+    fallback: true,
+    // fallback: false,
     paths: paths.map((slug) => ({ params: { slug: slug } })),
   };
 }

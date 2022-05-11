@@ -32,7 +32,7 @@ export default function Home({ recipes }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let recipes = [];
 
   const querySnapshot = await getDocs(collection(db, 'recipes'));
@@ -40,7 +40,13 @@ export async function getStaticProps() {
     recipes.push({ id: doc.id, ...doc.data() });
   });
 
-  console.log('data fetched');
+  const time = new Date().toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  console.log('data fetched: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {

@@ -16,7 +16,7 @@ export default function Ingredient({ ing, servings, defaultServings }) {
         return integer + ' ' + '1/3';
       } else if (fractional >= 0.4166 && fractional <= 0.58333333333333333) {
         return integer + ' ' + '1/2';
-      } else if (fractional >= 0.584 && fractional <= 0.708) {
+      } else if (fractional >= 0.584 && fractional <= 0.708333333333333333) {
         return integer + ' ' + '2/3';
       } else if (fractional >= 0.709 && fractional <= 0.875) {
         return integer + ' ' + '3/4';

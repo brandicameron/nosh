@@ -15,25 +15,12 @@ export default function IngredientInput({
           Amount
         </label>
         <input
-          className='w-28 rounded p-1.5 mb-5'
+          className='w-16 rounded p-1.5 mb-5'
           type='number'
           name='ingAmount'
           value={ing.ingAmount || ''}
           onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}
         />
-        <select
-          className='absolute h-[36px] mb-5 right-0 rounded-r bg-indigo-200'
-          name='ingUnit'
-          value={ing.ingUnit}
-          onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}
-        >
-          <option value='tsp'>tsp</option>
-          <option value='tbs'>tbs</option>
-          <option value='oz'>oz</option>
-          <option value='cup'>cup</option>
-          <option value='pound'>lb</option>
-          <option value=''>none</option>
-        </select>
       </div>
       <div className='flex justify-center items-center w-full ml-2'>
         <div className='relative flex flex-col w-full'>

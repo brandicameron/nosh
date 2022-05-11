@@ -13,9 +13,9 @@ export default function InstructionsInput({
       <label className='flex text-white' htmlFor='step'>
         Step {index + 1}
       </label>
-      <input
-        className='rounded p-1.5 mb-5 pr-10'
-        type='text'
+      <textarea
+        className='rounded p-1.5 mb-5 pr-10 leading-tight'
+        rows={1}
         name='step'
         value={step.step}
         onChange={(e) => handleListInputChange(e, index, instructions, setInstructions)}

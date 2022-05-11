@@ -9,7 +9,7 @@ import { db } from '../../firebase/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { FiClock } from 'react-icons/fi';
 import { IoIosArrowBack } from 'react-icons/io';
-import { FaMinus } from 'react-icons/fa';
+import { RiBookmarkLine } from 'react-icons/ri';
 import Ingredient from '../../components/Ingredient';
 import AddtoMenuButton from '../../components/AddtoMenuButton';
 
@@ -23,6 +23,7 @@ export default function Recipe({ recipe }) {
   const slug = recipe.slug;
 
   const changeServings = (e) => {
+    console.log('clicked');
     if (e.target.value === 'decrement') {
       setServings((prev) => prev - 1);
     } else if (e.target.value === 'increment') {
@@ -129,7 +130,7 @@ export default function Recipe({ recipe }) {
             aria-label='Decrement number of servings.'
             className='flex justify-center items-center text-xl font-black border w-1/3 pb-1'
           >
-            <FaMinus className='mt-1' />
+            —
           </button>
           <p className='border-indigo-400 border-x h-full flex flex-col justify-center items-center px-4 text-3xl leading-[70%] lg:text-lg lg:leading-[85%]'>
             <span className='text-[0.7rem] -mt-2 lg:-mt-1'>Serves</span> {servings}
@@ -151,35 +152,44 @@ export default function Recipe({ recipe }) {
           <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
             Menu
           </h2>
-          <ul className='space-y-4 py-2 text-sm'>
-            {/* future loop through items added to menu */}
-            {menuItems.map((item) => (
-              <Link key={item.id} href={`/recipes/${item.slug}`}>
-                <a>
-                  <li
-                    className='flex items-center border-b last:border-b-0 p-3 leading-none'
-                    style={{
-                      backgroundColor: `${slug === item.slug ? '#eef2ff' : '#fafafa'}`,
-                      fontWeight: `${slug === item.slug ? 'bold' : 'inherit'}`,
-                    }}
-                  >
-                    {item.featureImg && (
-                      <div className='mr-2 w-8 h-8 rounded-full shadow-lg aspect-square border border-neutral-200'>
-                        <Image
-                          src={item.featureImg}
-                          alt={item.title}
-                          width={32}
-                          height={32}
-                          className='object-cover object-center rounded-full'
-                        />
-                      </div>
-                    )}
-                    {item.title}
-                  </li>
-                </a>
-              </Link>
-            ))}
-          </ul>
+          {menuItems < 1 && (
+            <div className='flex h-1/2 justify-center items-center w-24 m-auto'>
+              <p className='text-center'>
+                Click the <RiBookmarkLine className='m-auto text-4xl my-2' />
+                button on any recipe to add them to your menu.
+              </p>
+            </div>
+          )}
+          {menuItems && (
+            <ul className='space-y-4 py-2 text-sm'>
+              {menuItems.map((item) => (
+                <Link key={item.id} href={`/recipes/${item.slug}`}>
+                  <a>
+                    <li
+                      className='flex items-center border-b last:border-b-0 p-3 leading-none'
+                      style={{
+                        backgroundColor: `${slug === item.slug ? '#eef2ff' : '#fafafa'}`,
+                        fontWeight: `${slug === item.slug ? 'bold' : 'inherit'}`,
+                      }}
+                    >
+                      {item.featureImg && (
+                        <div className='mr-2 w-8 h-8 rounded-full shadow-lg aspect-square border border-neutral-200'>
+                          <Image
+                            src={item.featureImg}
+                            alt={item.title}
+                            width={32}
+                            height={32}
+                            className='object-cover object-center rounded-full'
+                          />
+                        </div>
+                      )}
+                      {item.title}
+                    </li>
+                  </a>
+                </Link>
+              ))}
+            </ul>
+          )}
         </aside>
 
         <ul className='space-y-2 lg:w-1/2'>
@@ -244,6 +254,5 @@ export async function getStaticProps(context) {
     props: {
       recipe: JSON.parse(JSON.stringify(recipe)),
     },
-    // revalidate: 3600  //regenerates the static pages with fresh data every hour (set to however often you'd like)
   };
 }

@@ -32,7 +32,6 @@ export default function AddRecipe() {
   const [ingredients, setIngredients] = useState([
     {
       ingAmount: '',
-      ingUnit: 'tsp',
       ingredient: '',
     },
   ]);
@@ -119,7 +118,6 @@ export default function AddRecipe() {
       ...ingredients,
       {
         ingAmount: '',
-        ingUnit: 'tsp',
         ingredient: '',
       },
     ]);
@@ -160,7 +158,6 @@ export default function AddRecipe() {
     setIngredients([
       {
         ingAmount: '',
-        ingUnit: 'tsp',
         ingredient: '',
       },
     ]);
@@ -177,7 +174,6 @@ export default function AddRecipe() {
     });
 
     setInstructions([{ step: '' }]);
-    console.log(recipeData);
     addRecipeToFirebase(recipeData);
   };
 

@@ -31,10 +31,8 @@ export default function AddtoMenuButton({ position, recipe }) {
   useEffect(() => {
     if (menuItems.some((e) => e.id === recipe.id)) {
       setShowMenuAdded(true);
-      console.log('useEffect ran');
     } else {
       setShowMenuAdded(false);
-      console.log('useEffect ran');
     }
   }, []);
 

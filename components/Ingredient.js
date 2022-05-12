@@ -52,7 +52,7 @@ export default function Ingredient({ ing, servings, defaultServings }) {
   };
 
   return (
-    <li key={ing.ingredient} className='bg-neutral-100 rounded-xl p-2'>
+    <li key={ing.ingredient} className='bg-neutral-100 rounded-xl p-3 leading-tight'>
       <span className='pr-1'>{adjustIngredientAmounts(ing.ingAmount)}</span>{' '}
       {makePlural(ing.ingAmount, ing.ingUnit)} {ing.ingredient}
     </li>

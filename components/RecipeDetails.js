@@ -76,7 +76,7 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
         </li>
       </ul>
 
-      <div className='flex justify-around h-14 w-full items-center bg-indigo-500 text-white font-black lg:w-1/3 lg:h-full'>
+      <div className='flex justify-around h-14 w-full items-center bg-primaryM text-white font-black lg:w-1/3 lg:h-full'>
         <button
           onClick={changeServings}
           type='button'

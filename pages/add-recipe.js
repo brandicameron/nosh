@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
 import { RiFileUploadLine } from 'react-icons/ri';
 import CategoryInput from '../components/CategoryInput';
@@ -10,6 +11,7 @@ import { useAddRecipe } from '../hooks/useAddRecipe';
 import { useStorage } from '../hooks/useStorage';
 
 export default function AddRecipe() {
+  const router = useRouter();
   const { addRecipeToFirebase } = useAddRecipe();
   const { uploadImage } = useStorage();
   const [files, setFiles] = useState([]);
@@ -175,6 +177,7 @@ export default function AddRecipe() {
 
     setInstructions([{ step: '' }]);
     addRecipeToFirebase(recipeData);
+    router.push('/');
   };
 
   return (

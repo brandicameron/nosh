@@ -4,6 +4,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
 
+:root {
+  --primary: #4338ca;
+  --primaryM: #6366f1;
+  --primaryL: #e0e7ff;
+}
+
 html,
 body {
   padding: 0;
@@ -64,4 +70,15 @@ button {
 
 .filter-shadow {
   filter: drop-shadow(2px 2px 5px rgba(0 0 0 / 30%));
+}
+
+.drop {
+  transform: translateY(0);
+  animation: dropDown 2s linear forwards;
+}
+
+@keyframes dropDown {
+  100% {
+    transform: translateY(1);
+  }
 }

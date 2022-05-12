@@ -23,7 +23,7 @@ export default function RecipeHeader({ recipe }) {
         <IoIosArrowBack className='h-10 w-10 lg:h-8 lg:w-8' />
       </button>
       <AddtoMenuButton position='right-5' recipe={recipe} />
-      <h1 className='absolute text-white font-black text-4xl text-center max-w-[250px] lg:max-w-full'>
+      <h1 className='absolute text-white font-black text-3xl text-center max-w-[250px] lg:max-w-full lg:text-4xl'>
         {recipe.title}
       </h1>
     </section>

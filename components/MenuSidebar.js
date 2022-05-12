@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { RiBookmarkLine } from 'react-icons/ri';
 import { useContext } from 'react';
-import { MenuContext } from '../MenuContext';
+import { AppContext } from '../AppContext';
 
 export default function MenuSidebar({ recipe }) {
-  const { menuItems } = useContext(MenuContext);
-  const { setMenuItems } = useContext(MenuContext);
+  const { menuItems } = useContext(AppContext);
+  const { setMenuItems } = useContext(AppContext);
   const slug = recipe.slug;
 
   const handleClearMenu = () => {
@@ -14,15 +14,19 @@ export default function MenuSidebar({ recipe }) {
   };
 
   return (
-    <aside className='hidden bg-neutral-50 w-1/4 lg:block'>
-      <h2 className='text-xl font-black text-white text-center py-2 bg-indigo-600 rounded-t-xl'>
+    <aside
+      className={`${
+        menuItems < 1 ? 'hidden lg:block' : 'flex flex-col left-0 lg:relative'
+      } bg-neutral-50 rounded-t-xl w-1/4 lg:w-1/4`}
+    >
+      <h2 className='text-xl font-black text-center py-2 rounded-t-xl bg-primary text-white'>
         Menu
       </h2>
       {menuItems < 1 && (
-        <div className='w-24 mt-12 m-auto'>
-          <p className='text-center'>
+        <div className='w-16 m-auto leading-snug lg:w-24 lg:mt-12'>
+          <p className='text-center my-12'>
             Click the <RiBookmarkLine className='m-auto text-4xl my-2' />
-            button on any recipe to add them to your menu.
+            button on any recipe to add it to your menu.
           </p>
         </div>
       )}
@@ -32,24 +36,25 @@ export default function MenuSidebar({ recipe }) {
             <Link key={item.id} href={`/recipes/${item.slug}`}>
               <a>
                 <li
-                  className='flex items-center border-b border-neutral-200 p-3 leading-none'
+                  className='flex items-center justify-center border-b border-neutral-200 p-3 leading-none'
                   style={{
                     backgroundColor: `${slug === item.slug ? '#eef2ff' : '#fafafa'}`,
                     fontWeight: `${slug === item.slug ? 'bold' : 'inherit'}`,
                   }}
                 >
                   {item.featureImg && (
-                    <div className='mr-2 w-8 h-8 rounded-full shadow-lg aspect-square border border-neutral-200'>
+                    <div className='mr-2 w-12 h-12 rounded-full shadow-lg aspect-square border border-neutral-200 lg:w-8 lg:h-8'>
                       <Image
                         src={item.featureImg}
                         alt={item.title}
                         width={32}
                         height={32}
+                        layout='responsive'
                         className='object-cover object-center rounded-full'
                       />
                     </div>
                   )}
-                  {item.title}
+                  <span className='hidden lg:block'>{item.title}</span>
                 </li>
               </a>
             </Link>
@@ -59,7 +64,7 @@ export default function MenuSidebar({ recipe }) {
       {menuItems.length > 0 && (
         <button
           onClick={handleClearMenu}
-          className='bg-indigo-500 text-white font-black w-full p-3 transition-colors duration-300 hover:bg-indigo-600'
+          className='bg-primaryM rounded-xl text-white mt-auto leading-none font-black p-3 transition-colors duration-300 hover:bg-indigo-600'
         >
           Clear Menu
         </button>

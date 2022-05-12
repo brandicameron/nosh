@@ -1,11 +1,21 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { getAllCategories } from '../lib/categories';
 import Category from '../components/Category';
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
 
 export default function Home({ recipes }) {
   const { categories } = getAllCategories();
+  const { setRecipeData } = useContext(AppContext);
+
+  useEffect(() => {
+    if (recipes) {
+      setRecipeData(recipes);
+    }
+  }, []);
 
   const filterRecipes = (category) => {
     let filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
@@ -46,7 +56,7 @@ export async function getServerSideProps() {
     hour12: true,
   });
 
-  console.log('data fetched: ' + recipes.length + ' docs at ' + time);
+  console.log('data fetched at index.js: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {

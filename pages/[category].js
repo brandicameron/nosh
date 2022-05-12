@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   const { paths } = getAllCategories();
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
@@ -46,12 +46,17 @@ export async function getStaticProps() {
     recipes.push({ id: doc.id, ...doc.data() });
   });
 
-  console.log('data fetched');
+  const time = new Date().toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  console.log('data fetched for main nav categories: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {
       recipes: JSON.parse(JSON.stringify(recipes)),
     },
-    // revalidate: 3600  //regenerates the static pages with fresh data every hour (set to however often you'd like)
   };
 }

@@ -23,7 +23,7 @@ export default function Recipe({ recipe }) {
 
       <RecipeHeader recipe={recipe} />
       <RecipeDetails recipe={recipe} servings={servings} setServings={setServings} />
-      <section className='relative flex flex-col p-8 lg:flex-row lg:gap-8'>
+      <section className='relative flex justify-center flex-wrap py-6 px-6 gap-8 lg:flex-nowrap lg:p-8'>
         <MenuSidebar recipe={recipe} />
         <RecipeIngredients recipe={recipe} servings={servings} />
         <RecipeInstructions recipe={recipe} />
@@ -57,6 +57,14 @@ export async function getStaticProps(context) {
   querySnapshot.forEach((doc) => {
     recipe = { id: doc.id, ...doc.data() };
   });
+
+  const time = new Date().toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  console.log('data fetched: ' + recipe.title + ' docs at ' + time);
 
   return {
     props: {

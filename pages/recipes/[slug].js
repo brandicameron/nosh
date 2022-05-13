@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { db } from '../../firebase/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -10,6 +10,10 @@ import RecipeInstructions from '../../components/RecipeInstructions';
 
 export default function Recipe({ recipe }) {
   const [servings, setServings] = useState(recipe.serves);
+
+  useEffect(() => {
+    setServings(recipe.serves);
+  }, [recipe]);
 
   return (
     <main>

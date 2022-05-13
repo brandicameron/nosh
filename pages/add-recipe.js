@@ -17,6 +17,7 @@ export default function AddRecipe() {
   const [files, setFiles] = useState([]);
   const [tags, setTags] = useState(['all']);
   const [instructions, setInstructions] = useState([{ step: '' }]);
+
   const [featureImgURL, setFeatureImgURL] = useState(
     'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2Fno-image.jpg?alt=media&token=eb5ed515-b8c4-402e-a895-86586316674a'
   );
@@ -25,8 +26,8 @@ export default function AddRecipe() {
     serves: '',
     slug: '',
     preheat: '',
-    prepHour: '',
-    prepMin: '',
+    prepHour: 0,
+    prepMin: 0,
     cookHour: '',
     cookMin: '',
     tags: [],
@@ -140,6 +141,13 @@ export default function AddRecipe() {
     const title = recipeData.title;
     const removeApostrophes = title.replace(/'/g, '');
     const slug = removeApostrophes.replace(/\s/g, '-').toLowerCase();
+    let totalHour = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour) || 0;
+    let totalMin = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin) || 0;
+
+    if (totalMin > 60) {
+      totalMin = totalMin % 60;
+      totalHour = totalHour + 1;
+    }
 
     const fullRecipe = Object.assign(
       recipeData,
@@ -149,33 +157,12 @@ export default function AddRecipe() {
       { featureImg: featureImgURL },
       { ingredients: ingredients },
       { instructions: instructions },
+      { totalHour: totalHour },
+      { totalMin: totalMin },
       { tags: tags }
     );
 
     setRecipeData(fullRecipe);
-
-    // reset form inputs
-    setFiles([]);
-
-    setIngredients([
-      {
-        ingAmount: '',
-        ingredient: '',
-      },
-    ]);
-
-    setRecipeData({
-      title: '',
-      serves: '',
-      preheat: '',
-      prepHour: '',
-      prepMin: '',
-      cookHour: '',
-      cookMin: '',
-      tags: [],
-    });
-
-    setInstructions([{ step: '' }]);
     addRecipeToFirebase(recipeData);
     router.push('/');
   };

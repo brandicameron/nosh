@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FiClock } from 'react-icons/fi';
 
 export default function RecipeDetails({ recipe, servings, setServings }) {
-  const [totalHours, setTotalHours] = useState(recipe.prepHour + recipe.cookHour);
-  const [totalMins, setTotalMins] = useState(recipe.prepMin + recipe.cookMin);
-
   const changeServings = (e) => {
     if (e.target.value === 'decrement') {
       setServings((prev) => prev - 1);
@@ -13,21 +9,6 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
       setServings((prev) => prev + 1);
     }
   };
-
-  const calculateTotalTime = () => {
-    if (totalMins < 60) {
-      setTotalMins(totalMins);
-    }
-
-    if (totalMins > 60) {
-      setTotalMins(totalMins % 60);
-      setTotalHours(totalHours + 1);
-    }
-  };
-
-  useEffect(() => {
-    calculateTotalTime();
-  }, []);
 
   return (
     <aside className='flex flex-col items-center justify-between w-full lg:h-11 lg:flex-row lg:border-b'>
@@ -49,27 +30,29 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
         <li className='flex items-center flex-col lg:flex-row'>
           <FiClock className='mr-1 mb-1 text-lg lg:mb-0' />
           <span className='block lg:mr-1 font-black'>Prep</span>{' '}
-          {recipe.prepHour && recipe.prepHour} {recipe.prepHour && 'Hour'}{' '}
-          {recipe.prepMin && recipe.prepMin} Mins
+          {recipe.prepHour > 0 && recipe.prepHour} {recipe.prepHour > 1 ? 'Hours' : ''}{' '}
+          {recipe.prepHour === 1 ? 'Hour' : ''} {recipe.prepMin > 0 && recipe.prepMin}{' '}
+          {recipe.prepMin > 0 && 'Mins'}
         </li>
         <li className='flex items-center flex-col lg:flex-row'>
           <FiClock className='mr-1 mb-1 text-lg lg:mb-0' />
           <span className='block lg:mr-1 font-black'>Cook</span>{' '}
-          {recipe.cookHour && recipe.cookHour} {recipe.cookHour && 'Hour'}{' '}
-          {recipe.cookMin && recipe.cookMin} {recipe.cookMin && 'Mins'}
+          {recipe.cookHour > 0 && recipe.cookHour} {recipe.cookHour > 1 ? 'Hours' : ''}{' '}
+          {recipe.cookHour === 1 ? 'Hour' : ''} {recipe.cookMin > 0 && recipe.cookMin}{' '}
+          {recipe.cookMin > 0 && 'Mins'}
         </li>
         <li className='flex items-center flex-col lg:flex-row'>
           <FiClock className='mr-1 mb-1 text-lg lg:mb-0' />
           <span className='lg:flex'>
             <span className='block text-center font-black'>Total</span>
-            {totalHours && (
+            {recipe.totalHour > 0 && (
               <span className='ml-1'>
-                {totalHours} {totalHours > 1 ? 'Hours' : 'Hour'}
+                {recipe.totalHour} {recipe.totalHour > 1 ? 'Hours' : 'Hour'}
               </span>
             )}
-            {totalMins > 1 && (
+            {recipe.totalMin > 1 && (
               <span className='ml-1'>
-                {totalMins} {totalMins > 1 ? 'Mins' : 'Min'}
+                {recipe.totalMin} {recipe.totalMin > 1 ? 'Mins' : 'Min'}
               </span>
             )}
           </span>

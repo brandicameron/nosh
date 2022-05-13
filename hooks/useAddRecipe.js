@@ -21,6 +21,8 @@ export const useAddRecipe = () => {
       slug: recipeData.slug,
       tags: recipeData.tags,
       title: recipeData.title,
+      totalHour: recipeData.totalHour,
+      totalMin: recipeData.totalMin,
       created: Timestamp.now(),
     });
   };

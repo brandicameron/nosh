@@ -7,6 +7,9 @@ module.exports = {
         primaryM: 'var(--primaryM)',
         primaryL: 'var(--primaryL)',
       },
+      brightness: {
+        60: '.60',
+      },
     },
   },
   plugins: [],

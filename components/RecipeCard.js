@@ -4,10 +4,7 @@ import AddtoMenuButton from './AddtoMenuButton';
 
 export default function RecipeCard({ recipe }) {
   return (
-    <li className='relative h-32 w-52 shadow-lg text-gradient rounded-xl transition-transform duration-50 ease-in-out hover:scale-105'>
-      <h3 className='absolute bottom-1 left-2 text-xl font-black text-white leading-tight'>
-        {recipe.title}
-      </h3>
+    <li className='relative h-32 w-52 shadow-lg rounded-xl transition-transform duration-50 ease-in-out hover:scale-105'>
       <AddtoMenuButton position='right-2 top-1' recipe={recipe} />
       <Link href={`/recipes/${recipe.slug}`}>
         <a>
@@ -16,10 +13,13 @@ export default function RecipeCard({ recipe }) {
             alt={recipe.title}
             width={208}
             height={128}
-            className='mix-blend-overlay object-cover rounded-xl cursor-pointer'
+            className='object-cover rounded-xl cursor-pointer brightness-60'
           />
         </a>
       </Link>
+      <h3 className='absolute bottom-1 left-2 text-xl font-black text-white leading-tight text-shadow'>
+        {recipe.title}
+      </h3>
     </li>
   );
 }

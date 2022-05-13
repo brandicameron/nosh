@@ -64,8 +64,8 @@ button {
   scrollbar-width: none; /* Firefox */
 }
 
-.text-gradient {
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3));
+.text-shadow {
+  text-shadow: 1px 3px 15px #404040;
 }
 
 .filter-shadow {

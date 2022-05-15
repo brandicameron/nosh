@@ -36,7 +36,7 @@ export default function MenuSidebar({ recipe }) {
             <Link key={item.id} href={`/recipes/${item.slug}`}>
               <a>
                 <li
-                  className='flex items-center justify-center border-b border-neutral-200 p-3 leading-none'
+                  className='flex items-center border-b border-neutral-200 p-3 leading-none'
                   style={{
                     backgroundColor: `${slug === item.slug ? '#eef2ff' : '#fafafa'}`,
                     fontWeight: `${slug === item.slug ? 'bold' : 'inherit'}`,

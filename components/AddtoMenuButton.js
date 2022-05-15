@@ -15,13 +15,11 @@ export default function AddtoMenuButton({ position, recipe }) {
 
   const addRemoveItemFromMenu = () => {
     if (!menuItems.some((e) => e.id === recipe.id)) {
-      // console.log('added');
       setMenuItems([...menuItems, recipe]);
       setShowMenuAdded(true);
     }
 
     if (menuItems.some((e) => e.id === recipe.id)) {
-      // console.log('Removed');
       let filteredItems = menuItems.filter((item) => item.id !== recipe.id);
       setMenuItems(filteredItems);
       setShowMenuAdded(false);
@@ -34,7 +32,7 @@ export default function AddtoMenuButton({ position, recipe }) {
     } else {
       setShowMenuAdded(false);
     }
-  }, []);
+  }, [menuItems]);
 
   return (
     <button

@@ -32,7 +32,7 @@ export default function AddtoMenuButton({ position, recipe }) {
     } else {
       setShowMenuAdded(false);
     }
-  }, [menuItems]);
+  }, [menuItems, recipe]);
 
   return (
     <button

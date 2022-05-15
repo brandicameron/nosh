@@ -168,11 +168,11 @@ export default function AddRecipe() {
   };
 
   return (
-    <div className='flex flex-col items-center bg-indigo-600 h-full w-screen -mt-10 pb-60'>
+    <section className='flex flex-col items-center bg-primary h-full w-screen -mt-10 pb-60'>
       <h1 className='my-10 text-3xl text-white font-black'>Add New Recipe</h1>
       <form
         onSubmit={saveNewRecipe}
-        className='relative flex flex-col shadow-lg rounded px-5 w-11/12 md:max-w-xl md:px-8'
+        className='relative flex flex-col rounded px-5 w-11/12 md:max-w-xl md:px-8'
       >
         <StandardInput
           name='title'
@@ -293,6 +293,6 @@ export default function AddRecipe() {
           Save
         </button>
       </form>
-    </div>
+    </section>
   );
 }

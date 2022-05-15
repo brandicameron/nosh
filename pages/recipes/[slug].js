@@ -27,7 +27,7 @@ export default function Recipe({ recipe }) {
   }, [servings]);
 
   return (
-    <main>
+    <>
       <Head>
         <title>Nosh | {recipe.title}</title>
         <meta name='description' content={`Whatcha cooking today? How about ${recipe.title}?`} />
@@ -43,7 +43,7 @@ export default function Recipe({ recipe }) {
         <RecipeIngredients recipe={recipe} servings={servings} />
         <RecipeInstructions recipe={recipe} />
       </section>
-    </main>
+    </>
   );
 }
 

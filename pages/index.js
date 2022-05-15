@@ -23,7 +23,7 @@ export default function Home({ recipes }) {
   };
 
   return (
-    <main>
+    <>
       <Head>
         <title>Nosh | Family Recipes</title>
         <meta name='description' content='Cameron family recipes, all in one place.' />
@@ -38,7 +38,7 @@ export default function Home({ recipes }) {
       {categories.map((category) => (
         <Category key={category} state={filterRecipes(category)} title={category} />
       ))}
-    </main>
+    </>
   );
 }
 

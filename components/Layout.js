@@ -3,9 +3,11 @@ import Header from './Header';
 export default function Layout({ children }) {
   return (
     <>
+      <a class='skip-to-content-link' href='#skip-target'>
+        Skip to content
+      </a>
       <Header />
-      {children}
-      {/* <main className='text-neutral-700'>{children}</main> */}
+      <main id='skip-target'>{children}</main>
     </>
   );
 }

@@ -20,13 +20,30 @@ body {
   color: #404040;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.skip-to-content-link {
+  position: absolute;
+  background: var(--primaryM);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  transform: translateY(-500%);
+}
+
+.skip-to-content-link:focus {
+  transform: translateY(0%);
 }
 
 input:focus-visible,
@@ -68,6 +85,6 @@ button {
   text-shadow: 1px 3px 15px #404040;
 }
 
-/* .filter-shadow {
+.filter-shadow {
   filter: drop-shadow(2px 2px 5px rgba(0 0 0 / 30%));
-} */
+}

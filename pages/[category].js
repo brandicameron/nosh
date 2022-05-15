@@ -11,7 +11,7 @@ export default function Category({ recipes }) {
   const filteredRecipes = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
 
   return (
-    <main className='flex flex-col h-screen mx-auto px-4 lg:max-w-7xl'>
+    <section className='flex flex-col h-screen mx-auto px-4 lg:max-w-7xl'>
       <Head>
         <title>Nosh | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
         <meta name='description' content='Cameron family recipes, all in one place.' />
@@ -26,7 +26,7 @@ export default function Category({ recipes }) {
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </ul>
-    </main>
+    </section>
   );
 }
 

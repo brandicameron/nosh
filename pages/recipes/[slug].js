@@ -9,11 +9,22 @@ import RecipeIngredients from '../../components/RecipeIngredients';
 import RecipeInstructions from '../../components/RecipeInstructions';
 
 export default function Recipe({ recipe }) {
-  const [servings, setServings] = useState(recipe.serves);
+  const [servings, setServings] = useState('');
 
   useEffect(() => {
-    setServings(recipe.serves);
+    //if storage, set servings to storage amount.
+    if (sessionStorage.getItem(recipe.id) !== null) {
+      setServings(parseInt(sessionStorage.getItem(recipe.id)));
+    }
+    //if nothing in storage, servings to recipe.serves
+    if (sessionStorage.getItem(recipe.id) === null) {
+      setServings(recipe.serves);
+    }
   }, [recipe]);
+
+  useEffect(() => {
+    sessionStorage.setItem(recipe.id, JSON.stringify(servings));
+  }, [servings]);
 
   return (
     <main>

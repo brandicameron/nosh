@@ -1,7 +1,7 @@
-export default function Ingredient({ ing, servings, defaultServings }) {
+export default function Ingredient({ ing, servings, recipe }) {
   // Handle fractional amounts on ingredients
   const adjustIngredientAmounts = (amount) => {
-    const singleServing = amount / defaultServings.current;
+    const singleServing = amount / recipe.serves;
     let newAmount = singleServing * servings;
 
     if (newAmount.toString().includes('.')) {

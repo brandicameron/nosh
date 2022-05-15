@@ -68,17 +68,6 @@ button {
   text-shadow: 1px 3px 15px #404040;
 }
 
-.filter-shadow {
+/* .filter-shadow {
   filter: drop-shadow(2px 2px 5px rgba(0 0 0 / 30%));
-}
-
-.drop {
-  transform: translateY(0);
-  animation: dropDown 2s linear forwards;
-}
-
-@keyframes dropDown {
-  100% {
-    transform: translateY(1);
-  }
-}
+} */

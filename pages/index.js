@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
 import { db } from '../firebase/config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { getAllCategories } from '../lib/categories';
 import Category from '../components/Category';
 import { useContext } from 'react';
@@ -45,7 +45,8 @@ export default function Home({ recipes }) {
 export async function getServerSideProps() {
   let recipes = [];
 
-  const querySnapshot = await getDocs(collection(db, 'recipes'));
+  const collRef = collection(db, 'recipes');
+  const querySnapshot = await getDocs(query(collRef, orderBy('title')));
   querySnapshot.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
@@ -62,6 +63,5 @@ export async function getServerSideProps() {
     props: {
       recipes: JSON.parse(JSON.stringify(recipes)),
     },
-    // revalidate: 3600  //regenerates the static pages with fresh data every hour (set to however often you'd like)
   };
 }

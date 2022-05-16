@@ -43,9 +43,9 @@ export default function AddtoMenuButton({ position, recipe }) {
       title='Add or Remove From Menu'
     >
       {showMenuAdded ? (
-        <RiBookmarkFill className='text-white text-3xl lg:text-2xl' />
+        <RiBookmarkFill className='text-white text-4xl lg:text-3xl' />
       ) : (
-        <RiBookmarkLine className='text-white text-3xl lg:text-2xl' />
+        <RiBookmarkLine className='text-white text-4xl lg:text-3xl' />
       )}
     </button>
   );

@@ -6,12 +6,19 @@ import { useFormSwitch } from '../hooks/useFormSwitch';
 import Image from 'next/image';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
+import { MdEdit } from 'react-icons/md';
+import { useStorage } from '../hooks/useStorage';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { RiFileUploadLine } from 'react-icons/ri';
 
 export default function Account() {
-  const [message, setMessage] = useState('Hello');
   const { userName, userProfileUrl, loggedIn } = useUser();
+  const [message, setMessage] = useState('Hello');
+  const [newUserName, setNewUserName] = useState('');
+  const [newProfileURL, setNewProfileURL] = useState('');
   const { handleFormSwitch, signUp } = useFormSwitch();
   const { logoutUser } = useLogout();
+  const { uploadImage } = useStorage();
 
   useEffect(() => {
     let time = new Date();
@@ -28,6 +35,28 @@ export default function Account() {
     }
   }, []);
 
+  const handleInputChange = (e) => {
+    const newImage = e.target.files;
+    uploadImage(newImage, setNewProfileURL);
+  };
+
+  const handleNameChange = (e) => {};
+
+  useEffect(() => {
+    if (newProfileURL) {
+      const auth = getAuth();
+      updateProfile(auth.currentUser, {
+        photoURL: newProfileURL,
+      })
+        .then(() => {
+          console.log('Profile Pic Updated');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [newProfileURL]);
+
   return (
     <>
       <Head>
@@ -35,38 +64,54 @@ export default function Account() {
           {loggedIn ? `${userName.split(' ')[0]}'s Account` : 'Nosh | Login to Manage Your Account'}
         </title>
       </Head>
-      <section
-        className={`flex flex-col justify-center items-center ${
-          loggedIn ? 'h-full' : 'h-screen bg-primary -mt-9 pb-20'
-        }`}
-      >
+      <div className='flex flex-col justify-center items-center h-screen bg-primary -mt-9 pb-20'>
         {!loggedIn && !signUp && <Login handleFormSwitch={handleFormSwitch} />}
         {!loggedIn && signUp && <Signup handleFormSwitch={handleFormSwitch} />}
+
         {loggedIn && (
-          <h1 className='text-3xl text-primary font-black text-center'>
-            {message}, {userName.split(' ')[0]}!
-          </h1>
+          <section className='bg-neutral-100 rounded-xl p-5'>
+            <div className='border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
+              <Image
+                src={newProfileURL || userProfileUrl}
+                alt={`${userName} Profile Picture`}
+                width={96}
+                height={96}
+                className='object-cover'
+              />
+            </div>
+            <h1 className='text-xl text-primary font-black text-center my-6 lg:text-3xl'>
+              {message}, {userName.split(' ')[0]}!
+            </h1>
+
+            <div
+              aria-hidden
+              className='dropzone relative flex flex-col justify-center items-center text-neutral-500 bg-white border-2 border-dashed border-gray-400 rounded w-full h-20'
+            >
+              <label
+                htmlFor='fileDrop'
+                className='absolute block w-full h-full'
+                aria-hidden
+              ></label>
+              <input
+                className='absolute w-full h-full opacity-0'
+                type='file'
+                name='fileDrop'
+                onChange={handleInputChange}
+                aria-label='Click or Drag to Change Profile Pic'
+              />
+              <RiFileUploadLine className='text-3xl text-neutral-400' />
+              <span className='w-48 text-center leading-tight text-sm'>Change Profile Pic</span>
+            </div>
+
+            <button
+              className='bg-primary text-white rounded-md w-full text-xl font-black p-2 mt-8 transition-colors duration-150 hover:bg-primaryM'
+              onClick={logoutUser}
+            >
+              Log Out
+            </button>
+          </section>
         )}
-        {loggedIn && userProfileUrl && (
-          <div className='flex justify-center items-center border-2 rounded-full object-cover object-top w-24 h-24 mx-auto mt-3 mb-1 overflow-hidden'>
-            <Image
-              src={userProfileUrl}
-              alt={`${userName} Profile Picture`}
-              width={96}
-              height={96}
-              className='object-cover'
-            />
-          </div>
-        )}
-        {loggedIn && (
-          <button
-            className='bg-primary text-white rounded-md w-28 mx-auto text-xl font-black p-2 mt-8 transition-colors duration-150 hover:bg-primaryM'
-            onClick={logoutUser}
-          >
-            Log Out
-          </button>
-        )}
-      </section>
+      </div>
     </>
   );
 }

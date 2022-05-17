@@ -21,7 +21,7 @@ export default function AddRecipe() {
       >
         {loggedIn && <AddRecipeForm />}
         {!loggedIn && (
-          <h1 className='absolute text-white text-3xl top-[15vh]'>
+          <h1 className='absolute text-white text-center text-2xl top-[15vh] lg:text-3xl'>
             Please sign in to add a recipe.
           </h1>
         )}

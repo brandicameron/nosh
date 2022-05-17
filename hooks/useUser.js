@@ -15,11 +15,8 @@ export const useUser = () => {
         setUserName(user.displayName);
         setUserProfileUrl(user.photoURL);
         setLoggedIn(true);
-        console.log('Logged In');
-        console.log(user);
       } else {
         setLoggedIn(false);
-        console.log('Logged Out');
       }
     });
   }, []);

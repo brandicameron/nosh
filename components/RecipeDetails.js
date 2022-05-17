@@ -23,7 +23,9 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
               className='rounded-full object-cover border border-neutral-200'
             />
           </div>
-          <figcaption className='text-sm'>by {recipe.addedBy}</figcaption>
+          <figcaption className='text-sm leading-none'>
+            by {recipe.addedBy.split(' ')[0]}
+          </figcaption>
         </figure>
       )}
       <ul className='flex justify-around w-full text-sm leading-tight py-3'>

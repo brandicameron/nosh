@@ -6,7 +6,11 @@ const nextConfig = {
 module.exports = {
   nextConfig,
   images: {
-    domains: ['firebasestorage.googleapis.com', 'bc-portfolio.s3.amazonaws.com'],
+    domains: [
+      'firebasestorage.googleapis.com',
+      'bc-portfolio.s3.amazonaws.com',
+      'lh3.googleusercontent.com',
+    ],
   },
   i18n: {
     locales: ['en'],

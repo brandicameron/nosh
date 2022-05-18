@@ -1,17 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../firebase/config';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import RecipeCard from '../components/RecipeCard';
 import { getAllCategories } from '../lib/categories';
 
 export default function Category({ recipes }) {
   const router = useRouter();
   const { category } = router.query;
-  const filteredRecipes = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
 
   return (
-    <section className='flex flex-col h-screen mx-auto px-4 lg:max-w-7xl'>
+    <section className='mx-auto px-4 lg:max-w-7xl'>
       <Head>
         <title>Nosh | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
         <meta name='description' content='Cameron family recipes, all in one place.' />
@@ -21,8 +20,8 @@ export default function Category({ recipes }) {
       <h1 className='text-3xl text-center font-black capitalize tracking-tight'>
         {category === 'all' ? 'All Recipes' : category}
       </h1>
-      <ul className='flex flex-wrap gap-6 mb-10 p-8'>
-        {filteredRecipes.map((recipe) => (
+      <ul className='flex flex-col items-center gap-6 mb-10 p-8 lg:flex-row lg:flex-wrap'>
+        {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </ul>
@@ -38,11 +37,13 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
+  const categorySlug = context.params.category;
   let recipes = [];
 
-  const collRef = collection(db, 'recipes');
-  const querySnapshot = await getDocs(query(collRef, orderBy('title')));
+  const recipesRef = collection(db, 'recipes');
+  const q = query(recipesRef, where('tags', 'array-contains', categorySlug));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
@@ -53,7 +54,7 @@ export async function getStaticProps() {
     hour12: true,
   });
 
-  console.log('data fetched at index.js: ' + recipes.length + ' docs at ' + time);
+  console.log('data fetched at [category].js: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {

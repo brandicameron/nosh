@@ -100,7 +100,7 @@ export default function Account() {
         {!loggedIn && signUp && <Signup handleFormSwitch={handleFormSwitch} />}
 
         {loggedIn && (
-          <section className='bg-neutral-100 rounded-xl p-5 max-w-xs'>
+          <section className='bg-neutral-50 rounded-xl p-5 max-w-xs'>
             <div className='bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
               <Image
                 src={newProfileURL || userProfileUrl}

@@ -63,7 +63,7 @@ input::placeholder {
 label[for='title']::before,
 label[for='serves']::before {
   content: '*';
-  color: rgb(255, 98, 98);
+  color: #ff6161;
   font-weight: bold;
   padding-right: 3px;
 }

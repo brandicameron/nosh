@@ -5,8 +5,11 @@ export default function CategoryInput({ handleCategoriesChange }) {
 
   return (
     <fieldset className='flex justify-center items-center flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>
-      <legend className='text-white text-3xl font-black px-2'>
-        Category <small className='text-xs font-normal'>*Required</small>
+      <legend className='flex justify-center items-center text-white text-3xl font-black px-2'>
+        Category{' '}
+        <small className='text-sm font-normal lg:ml-2'>
+          <span className='text-[#ff6161] mr-1'>*</span>Required
+        </small>
       </legend>
       {categories.slice(1).map((category) => (
         <div className='relative' key={category}>

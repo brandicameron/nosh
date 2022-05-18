@@ -128,8 +128,9 @@ export function AddRecipeForm() {
     );
 
     setRecipeData(fullRecipe);
-    addRecipeToFirebase(recipeData);
-    router.push(`/recipes/${recipeData.slug}`);
+    console.log(recipeData);
+    // addRecipeToFirebase(recipeData);
+    // router.push(`/recipes/${recipeData.slug}`);
   };
 
   return (

@@ -7,7 +7,6 @@ import { useFormSwitch } from '../hooks/useFormSwitch';
 import Image from 'next/image';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
-import { MdEdit } from 'react-icons/md';
 import { useStorage } from '../hooks/useStorage';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
@@ -15,7 +14,7 @@ import { getStorage, ref, deleteObject } from 'firebase/storage';
 export default function Account() {
   const { userName, userProfileUrl, loggedIn } = useUser();
   const [message, setMessage] = useState('Hello');
-  const [newUserName, setNewUserName] = useState('');
+  const [newDisplayName, setNewDisplayName] = useState('');
   const [newProfileURL, setNewProfileURL] = useState('');
   const { handleFormSwitch, signUp } = useFormSwitch();
   const { logoutUser } = useLogout();
@@ -36,12 +35,27 @@ export default function Account() {
     }
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleProfileImageChange = (e) => {
     const newImage = e.target.files;
     uploadImage(newImage, setNewProfileURL);
   };
 
-  const handleNameChange = (e) => {};
+  useEffect(() => {
+    setNewDisplayName(userName);
+  }, []);
+
+  const handleNameChange = () => {
+    const auth = getAuth();
+    updateProfile(auth.currentUser, {
+      displayName: newDisplayName,
+    })
+      .then(() => {
+        console.log('New name!');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     // Updates user profile pic and deletes the old one from cloud storage
@@ -81,7 +95,7 @@ export default function Account() {
           {loggedIn ? `${userName.split(' ')[0]}'s Account` : 'Nosh | Login to Manage Your Account'}
         </title>
       </Head>
-      <div className='flex flex-col justify-center items-center h-screen bg-primary -mt-9 pb-20'>
+      <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-b from-primary to-primaryM -mt-9 pb-20'>
         {!loggedIn && !signUp && <Login handleFormSwitch={handleFormSwitch} />}
         {!loggedIn && signUp && <Signup handleFormSwitch={handleFormSwitch} />}
 
@@ -96,8 +110,8 @@ export default function Account() {
                 className='object-cover'
               />
             </div>
-            <h1 className='text-xl text-primary font-black text-center my-6 lg:text-3xl'>
-              {message}, {userName.split(' ')[0]}!
+            <h1 className='text-xl text-primary font-black text-center mt-6 mb-9 lg:text-3xl'>
+              {message}, {newDisplayName.split(' ')[0] || userName.split(' ')[0]}!
             </h1>
 
             <div
@@ -113,11 +127,28 @@ export default function Account() {
                 className='absolute w-full h-full opacity-0'
                 type='file'
                 name='fileDrop'
-                onChange={handleInputChange}
+                onChange={handleProfileImageChange}
                 aria-label='Click or Drag to Change Profile Pic'
               />
               <RiFileUploadLine className='text-3xl text-neutral-400' />
               <span className='w-48 text-center leading-tight text-sm'>Change Profile Pic</span>
+            </div>
+
+            <label className='block mt-9'>Change Display Name</label>
+            <div className='flex justify-center items-center mb-5'>
+              <input
+                type='text'
+                name='name'
+                onChange={(e) => setNewDisplayName(e.target.value)}
+                value={newDisplayName}
+                className='border border-gray-400 rounded-l w-3/4 p-1.5'
+              />
+              <button
+                onClick={handleNameChange}
+                className='bg-primary text-white rounded-r-md w-1/4 text-lg font-black p-1.5 transition-colors duration-150 hover:bg-primaryM'
+              >
+                Save
+              </button>
             </div>
 
             <button

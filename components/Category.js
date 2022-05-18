@@ -27,7 +27,7 @@ export default function Category({ state, title }) {
         ref={scrollElement}
         className='overflow-x-scroll no-scrollbar'
       >
-        <ul className='flex w-max space-x-4 mt-1 mb-10 first:ml-7'>
+        <ul className='flex w-max space-x-3 mb-10 first:ml-7'>
           {state.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}

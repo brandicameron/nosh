@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../firebase/config';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import RecipeCard from '../components/RecipeCard';
 import { getAllCategories } from '../lib/categories';
 
@@ -12,7 +12,12 @@ export default function Category({ recipes }) {
   return (
     <section className='mx-auto px-4 lg:max-w-7xl'>
       <Head>
-        <title>Nosh | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
+        <title>
+          Nosh |{' '}
+          {category === 'all'
+            ? 'All Recipes'
+            : category.charAt(0).toUpperCase() + category.slice(1)}
+        </title>
         <meta name='description' content='Cameron family recipes, all in one place.' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0'></meta>
       </Head>
@@ -20,7 +25,7 @@ export default function Category({ recipes }) {
       <h1 className='text-3xl text-center font-black capitalize tracking-tight'>
         {category === 'all' ? 'All Recipes' : category}
       </h1>
-      <ul className='flex flex-col items-center gap-6 mb-10 p-8 lg:flex-row lg:flex-wrap'>
+      <ul className='flex flex-col items-center gap-6 mb-10 p-8 sm:flex-row sm:flex-wrap'>
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}

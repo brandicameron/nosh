@@ -17,7 +17,7 @@ export default function MenuSidebar({ recipe }) {
     <aside
       className={`${
         menuItems < 1 ? 'hidden lg:block' : 'flex flex-col left-0 lg:relative'
-      } bg-neutral-50 rounded-t-xl w-1/4 lg:w-1/4`}
+      } bg-neutral-100 rounded-xl w-1/4 lg:w-1/4`}
     >
       <h2 className='text-xl font-black text-center py-2 rounded-t-xl bg-primary text-white'>
         Menu
@@ -64,7 +64,7 @@ export default function MenuSidebar({ recipe }) {
       {menuItems.length > 0 && (
         <button
           onClick={handleClearMenu}
-          className='bg-primaryM rounded-xl text-white mt-auto leading-none font-black p-3 transition-colors duration-300 hover:bg-indigo-600'
+          className='bg-primaryM rounded-b-xl text-white mt-auto leading-none font-black p-3 transition-colors duration-300 hover:bg-indigo-600'
         >
           Clear Menu
         </button>

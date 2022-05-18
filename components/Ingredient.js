@@ -1,25 +1,26 @@
 export default function Ingredient({ ing, servings, recipe }) {
-  // Handle fractional amounts on ingredients
-  const adjustIngredientAmounts = (amount) => {
+  const calculateAndFormatIngredientAmount = (amount) => {
     const singleServing = amount / recipe.serves;
-    let newAmount = singleServing * servings;
+    const adjustedAmount = singleServing * servings;
 
-    if (newAmount.toString().includes('.')) {
-      const splitAmount = newAmount.toString().split('.');
+    if (adjustedAmount.toString().includes('.')) {
+      const splitAmount = adjustedAmount.toString().split('.');
       const integer = splitAmount[0] === '0' ? '' : splitAmount[0];
-      const fractional = '.' + splitAmount[1];
+      const fractionalAmount = '.' + splitAmount[1];
+      // prevents returning (ex) .583333333333333333333 in the recipe
+      const fractional = fractionalAmount.slice(0, 3);
       if (fractional >= 0.001 && fractional <= 0.1875) {
-        return integer + ' ' + '1/8';
+        return integer + ' ' + '⅛';
       } else if (fractional >= 0.1876 && fractional <= 0.2915) {
-        return integer + ' ' + '1/4';
+        return integer + ' ' + '¼';
       } else if (fractional >= 0.2916 && fractional <= 0.4165) {
-        return integer + ' ' + '1/3';
-      } else if (fractional >= 0.4166 && fractional <= 0.58333333333333333) {
-        return integer + ' ' + '1/2';
-      } else if (fractional >= 0.584 && fractional <= 0.708333333333333333) {
-        return integer + ' ' + '2/3';
+        return integer + ' ' + '⅓';
+      } else if (fractional >= 0.4166 && fractional <= 0.583) {
+        return integer + ' ' + '½';
+      } else if (fractional >= 0.584 && fractional <= 0.708) {
+        return integer + ' ' + '⅔';
       } else if (fractional >= 0.709 && fractional <= 0.875) {
-        return integer + ' ' + '3/4';
+        return integer + ' ' + '¾';
       } else if (fractional >= 0.876 && fractional <= 1) {
         if (integer === '') {
           return integer + 1;
@@ -28,12 +29,12 @@ export default function Ingredient({ ing, servings, recipe }) {
           return parseInt(integer) + 1;
         }
       } else {
-        return newAmount;
+        return adjustedAmount;
       }
     }
 
-    if (!newAmount.toString().includes('.')) {
-      return newAmount;
+    if (!adjustedAmount.toString().includes('.')) {
+      return adjustedAmount;
     }
   };
 
@@ -52,8 +53,8 @@ export default function Ingredient({ ing, servings, recipe }) {
   };
 
   return (
-    <li key={ing.ingredient} className='bg-neutral-100 rounded-xl p-3 leading-tight'>
-      <span className='pr-1'>{adjustIngredientAmounts(ing.ingAmount)}</span>{' '}
+    <li key={ing.ingredient} className='px-4 py-1 leading-tight'>
+      <span className='pr-1 font-bold'>{calculateAndFormatIngredientAmount(ing.ingAmount)}</span>
       {makePlural(ing.ingAmount, ing.ingUnit)} {ing.ingredient}
     </li>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { RiFileUploadLine } from 'react-icons/ri';
 import Head from 'next/head';
 import { useLogout } from '../hooks/useLogout';
 import { useUser } from '../hooks/useUser';
@@ -9,7 +10,7 @@ import Signup from '../components/Signup';
 import { MdEdit } from 'react-icons/md';
 import { useStorage } from '../hooks/useStorage';
 import { getAuth, updateProfile } from 'firebase/auth';
-import { RiFileUploadLine } from 'react-icons/ri';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 
 export default function Account() {
   const { userName, userProfileUrl, loggedIn } = useUser();
@@ -43,13 +44,29 @@ export default function Account() {
   const handleNameChange = (e) => {};
 
   useEffect(() => {
+    // Updates user profile pic and deletes the old one from cloud storage
     if (newProfileURL) {
+      const oldProfile = userProfileUrl
+        .split(
+          'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2F'
+        )[1]
+        .split('?')[0];
       const auth = getAuth();
+      // Add new pic
       updateProfile(auth.currentUser, {
         photoURL: newProfileURL,
       })
         .then(() => {
-          console.log('Profile Pic Updated');
+          // Delete old pic from firebase storage
+          const storage = getStorage();
+          const oldProfileRef = ref(storage, `featureImages/${oldProfile}`);
+          deleteObject(oldProfileRef)
+            .then(() => {
+              console.log('File deleted successfully');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -70,7 +87,7 @@ export default function Account() {
 
         {loggedIn && (
           <section className='bg-neutral-100 rounded-xl p-5'>
-            <div className='border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
+            <div className='bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
               <Image
                 src={newProfileURL || userProfileUrl}
                 alt={`${userName} Profile Picture`}

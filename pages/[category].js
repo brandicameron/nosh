@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../firebase/config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import RecipeCard from '../components/RecipeCard';
 import { getAllCategories } from '../lib/categories';
 
@@ -41,7 +41,8 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   let recipes = [];
 
-  const querySnapshot = await getDocs(collection(db, 'recipes'));
+  const collRef = collection(db, 'recipes');
+  const querySnapshot = await getDocs(query(collRef, orderBy('title')));
   querySnapshot.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
@@ -52,7 +53,7 @@ export async function getStaticProps() {
     hour12: true,
   });
 
-  console.log('data fetched for main nav categories: ' + recipes.length + ' docs at ' + time);
+  console.log('data fetched at index.js: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {

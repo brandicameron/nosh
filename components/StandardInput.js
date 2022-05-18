@@ -3,6 +3,7 @@ import React from 'react';
 export default function StandardInput({
   name,
   type,
+  mode,
   label,
   placeholder,
   value,
@@ -16,8 +17,9 @@ export default function StandardInput({
       </label>
       <input
         className='rounded p-1.5 mb-5'
-        type={type}
         name={name}
+        type={type}
+        inputMode={mode}
         placeholder={placeholder}
         value={value}
         onChange={handleInputChange}

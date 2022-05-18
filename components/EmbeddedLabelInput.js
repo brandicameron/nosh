@@ -13,8 +13,8 @@ export default function EmbeddedLabelInput({
       </label>
       <input
         className='rounded p-1.5 mb-5 max-w-[115px]'
-        type={type}
         name={name}
+        type={type}
         placeholder={placeholder}
         value={value}
         onChange={handleInputChange}

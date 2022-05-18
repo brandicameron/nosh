@@ -17,6 +17,7 @@ export default function IngredientInput({
         <input
           className='w-16 rounded p-1.5 mb-5'
           type='number'
+          inputMode='decimal'
           name='ingAmount'
           value={ing.ingAmount || ''}
           onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}

@@ -153,7 +153,7 @@ export function AddRecipeForm() {
 
         <StandardInput
           name='serves'
-          type='number'
+          type='tel'
           label='Serves'
           placeholder={4}
           value={recipeData.serves || ''}
@@ -164,7 +164,7 @@ export function AddRecipeForm() {
         <div className='flex'>
           <EmbeddedLabelInput
             name='preheat'
-            type='number'
+            type='tel'
             label='deg'
             placeholder='--'
             value={recipeData.preheat || ''}
@@ -176,7 +176,7 @@ export function AddRecipeForm() {
         <div className='flex'>
           <EmbeddedLabelInput
             name='prepHour'
-            type='number'
+            type='tel'
             label='Hour'
             placeholder='--'
             value={recipeData.prepHour || ''}
@@ -184,7 +184,7 @@ export function AddRecipeForm() {
           />
           <EmbeddedLabelInput
             name='prepMin'
-            type='number'
+            type='tel'
             label='Min'
             placeholder='--'
             value={recipeData.prepMin || ''}
@@ -195,7 +195,7 @@ export function AddRecipeForm() {
         <div className='flex'>
           <EmbeddedLabelInput
             name='cookHour'
-            type='number'
+            type='tel'
             label='Hour'
             placeholder='--'
             value={recipeData.cookHour || ''}
@@ -203,7 +203,7 @@ export function AddRecipeForm() {
           />
           <EmbeddedLabelInput
             name='cookMin'
-            type='number'
+            type='tel'
             label='Min'
             placeholder='--'
             value={recipeData.cookMin || ''}

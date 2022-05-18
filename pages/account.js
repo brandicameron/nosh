@@ -100,7 +100,7 @@ export default function Account() {
         {!loggedIn && signUp && <Signup handleFormSwitch={handleFormSwitch} />}
 
         {loggedIn && (
-          <section className='bg-neutral-100 rounded-xl p-5'>
+          <section className='bg-neutral-100 rounded-xl p-5 max-w-xs'>
             <div className='bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
               <Image
                 src={newProfileURL || userProfileUrl}
@@ -110,7 +110,7 @@ export default function Account() {
                 className='object-cover'
               />
             </div>
-            <h1 className='text-xl text-primary font-black text-center mt-6 mb-9 lg:text-3xl'>
+            <h1 className='text-3xl text-primary font-black text-center mt-6 mb-9 lg:text-3xl'>
               {message}, {newDisplayName.split(' ')[0] || userName.split(' ')[0]}!
             </h1>
 
@@ -141,11 +141,11 @@ export default function Account() {
                 name='name'
                 onChange={(e) => setNewDisplayName(e.target.value)}
                 value={newDisplayName}
-                className='border border-gray-400 rounded-l w-3/4 p-1.5'
+                className='border border-gray-400 border-r-0 appearance-none w-3/4 p-1.5 lg:rounded-l'
               />
               <button
                 onClick={handleNameChange}
-                className='bg-primary text-white rounded-r-md w-1/4 text-lg font-black p-1.5 transition-colors duration-150 hover:bg-primaryM'
+                className='bg-primary text-white rounded-r-md w-1/4 text-lg font-black p-1.5 -ml-1 transition-colors duration-150 hover:bg-primaryM'
               >
                 Save
               </button>

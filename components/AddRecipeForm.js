@@ -117,9 +117,9 @@ export function AddRecipeForm() {
     const fullRecipe = Object.assign(
       recipeData,
       { slug: slug },
-      { addedBy: userName },
+      // { addedBy: userName },
       { addedByUid: userUID },
-      { addedByImg: userProfileUrl },
+      // { addedByImg: userProfileUrl },
       { featureImg: featureImgURL },
       { ingredients: ingredients },
       { instructions: instructions },

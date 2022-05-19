@@ -12,6 +12,7 @@ export default function Home({ recipes }) {
   const { setRecipeData } = useContext(AppContext);
 
   useEffect(() => {
+    // keeps search data up to date (context)
     if (recipes) {
       setRecipeData(recipes);
     }

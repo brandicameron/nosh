@@ -82,28 +82,28 @@ export default function privacy() {
       </p>
       <ul>
         <li className='my-3 list-disc'>
-          The right to access – You have the right to request copies of your personal data. We may
+          The right to access: You have the right to request copies of your personal data. We may
           charge you a small fee for this service.
         </li>
         <li className='my-3 list-disc'>
-          The right to rectification – You have the right to request that we correct any information
+          The right to rectification: You have the right to request that we correct any information
           you believe is inaccurate. You also have the right to request that we complete the
           information you believe is incomplete.
         </li>
         <li className='my-3 list-disc'>
-          The right to erasure – You have the right to request that we erase your personal data,
+          The right to erasure: You have the right to request that we erase your personal data,
           under certain conditions.
         </li>
         <li className='my-3 list-disc'>
-          The right to restrict processing – You have the right to request that we restrict the
+          The right to restrict processing: You have the right to request that we restrict the
           processing of your personal data, under certain conditions.
         </li>
         <li className='my-3 list-disc'>
-          The right to object to processing – You have the right to object to our processing of your
+          The right to object to processing: You have the right to object to our processing of your
           personal data, under certain conditions.
         </li>
         <li className='my-3 list-disc'>
-          The right to data portability – You have the right to request that we transfer the data
+          The right to data portability: You have the right to request that we transfer the data
           that we have collected to another organization, or directly to you, under certain
           conditions.
         </li>

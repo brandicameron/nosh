@@ -38,7 +38,7 @@ export default function Recipe({ recipe }) {
 
       <RecipeHeader recipe={recipe} />
       <RecipeDetails recipe={recipe} servings={servings} setServings={setServings} />
-      <section className='relative flex justify-center flex-wrap py-6 px-6 gap-8 lg:flex-nowrap lg:p-8'>
+      <section className='relative flex justify-center flex-wrap py-6 px-6 gap-8 md:flex-nowrap md:p-8'>
         <MenuSidebar recipe={recipe} />
         <RecipeIngredients recipe={recipe} servings={servings} />
         <RecipeInstructions recipe={recipe} />
@@ -79,7 +79,7 @@ export async function getStaticProps(context) {
     hour12: true,
   });
 
-  console.log('data fetched: ' + recipe.title + ' docs at ' + time);
+  console.log('data fetched: ' + recipe.title + ' doc at ' + time);
 
   return {
     props: {

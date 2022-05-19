@@ -6,6 +6,7 @@ export const useUser = () => {
   const [userUID, setUserUID] = useState(null);
   const [userName, setUserName] = useState('');
   const [userProfileUrl, setUserProfileUrl] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ export const useUser = () => {
         setUserUID(user.uid);
         setUserName(user.displayName);
         setUserProfileUrl(user.photoURL);
+        setUserEmail(user.email);
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
@@ -21,5 +23,5 @@ export const useUser = () => {
     });
   }, []);
 
-  return { userUID, userName, userProfileUrl, loggedIn };
+  return { userUID, userName, userProfileUrl, userEmail, loggedIn };
 };

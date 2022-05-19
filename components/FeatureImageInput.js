@@ -25,7 +25,7 @@ export default function FeatureImageInput({ setFeatureImgURL }) {
           })
         )
       );
-      uploadImage(acceptedFiles, setFeatureImgURL);
+      uploadImage(acceptedFiles, setFeatureImgURL, 'featureImages');
     },
   });
 

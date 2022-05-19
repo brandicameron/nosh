@@ -10,9 +10,11 @@ import Signup from '../components/Signup';
 import { useStorage } from '../hooks/useStorage';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
+import { db } from '../firebase/config';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export default function Account() {
-  const { userName, userProfileUrl, loggedIn } = useUser();
+  const { userUID, userName, userProfileUrl, loggedIn } = useUser();
   const [message, setMessage] = useState('Hello');
   const [newDisplayName, setNewDisplayName] = useState('');
   const [newProfileURL, setNewProfileURL] = useState('');
@@ -37,7 +39,7 @@ export default function Account() {
 
   const handleProfileImageChange = (e) => {
     const newImage = e.target.files;
-    uploadImage(newImage, setNewProfileURL);
+    uploadImage(newImage, setNewProfileURL, 'profileImages');
   };
 
   useEffect(() => {
@@ -50,7 +52,11 @@ export default function Account() {
       displayName: newDisplayName,
     })
       .then(() => {
-        console.log('New name!');
+        // Update name in Users collection
+        const userDisplayNameRef = doc(db, 'Users', `${userUID}`);
+        updateDoc(userDisplayNameRef, {
+          displayName: newDisplayName,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -60,9 +66,10 @@ export default function Account() {
   useEffect(() => {
     // Updates user profile pic and deletes the old one from cloud storage
     if (newProfileURL) {
+      //find a better way to get the image name only - maybe metadata.name?
       const oldProfile = userProfileUrl
         .split(
-          'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2F'
+          'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/profileImages%2F'
         )[1]
         .split('?')[0];
       const auth = getAuth();
@@ -71,16 +78,25 @@ export default function Account() {
         photoURL: newProfileURL,
       })
         .then(() => {
-          // Delete old pic from firebase storage
-          const storage = getStorage();
-          const oldProfileRef = ref(storage, `featureImages/${oldProfile}`);
-          deleteObject(oldProfileRef)
-            .then(() => {
-              console.log('File deleted successfully');
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          // Update image in Users collection
+          const userProfileImgRef = doc(db, 'Users', `${userUID}`);
+          updateDoc(userProfileImgRef, {
+            photoURL: newProfileURL,
+          });
+        })
+        .then(() => {
+          // Delete old pic from firebase storage unless it's the generic user image
+          if (oldProfile !== 'generic-user.gif') {
+            const storage = getStorage();
+            const oldProfileRef = ref(storage, `profileImages/${oldProfile}`);
+            deleteObject(oldProfileRef)
+              .then(() => {
+                console.log('File deleted successfully');
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -91,9 +107,7 @@ export default function Account() {
   return (
     <>
       <Head>
-        <title>
-          {loggedIn ? `${userName.split(' ')[0]}'s Account` : 'Nosh | Login to Manage Your Account'}
-        </title>
+        <title>{loggedIn ? `${userName}'s Account` : 'Nosh | Login to Manage Your Account'}</title>
       </Head>
       <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-b from-primary to-primaryM -mt-9 pb-20'>
         {!loggedIn && !signUp && <Login handleFormSwitch={handleFormSwitch} />}

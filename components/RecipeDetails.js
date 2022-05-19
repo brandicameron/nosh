@@ -1,7 +1,22 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FiClock } from 'react-icons/fi';
+import { db } from '../firebase/config';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 export default function RecipeDetails({ recipe, servings, setServings }) {
+  const [recipeAddedBy, setRecipeAddedBy] = useState('');
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'Users', `${recipe.addedByUid}`), (doc) => {
+      setRecipeAddedBy({ ...doc.data() });
+      console.log('Data fetched');
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
+
   const changeServings = (e) => {
     if (e.target.value === 'decrement') {
       setServings((prev) => prev - 1);
@@ -12,11 +27,11 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
 
   return (
     <aside className='flex flex-col items-center justify-between w-full lg:h-11 lg:flex-row lg:border-b'>
-      {recipe.addedByImg && (
-        <figure className='hidden h-full justify-center items-center border-r lg:flex lg:w-1/5'>
+      {recipeAddedBy && (
+        <figure className='flex w-full h-full justify-center items-center border-b py-1 lg:border-r lg:flex lg:w-1/5 lg:border-b-0 lg:py-0'>
           <div className='mr-1 pt-1'>
             <Image
-              src={recipe.addedByImg}
+              src={recipeAddedBy.photoURL}
               alt={recipe.title}
               width={25}
               height={25}
@@ -24,7 +39,7 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
             />
           </div>
           <figcaption className='text-sm leading-none'>
-            by {recipe.addedBy.split(' ')[0]}
+            by {recipeAddedBy.displayName.split(' ')[0]}
           </figcaption>
         </figure>
       )}

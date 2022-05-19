@@ -9,8 +9,11 @@ export default function RecipeDetails({ recipe, servings, setServings }) {
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, 'Users', `${recipe.addedByUid}`), (doc) => {
-      setRecipeAddedBy({ ...doc.data() });
-      console.log('Data fetched');
+      if (doc.data()) {
+        setRecipeAddedBy({ ...doc.data() });
+      } else {
+        setRecipeAddedBy('');
+      }
     });
     return () => {
       unsub();

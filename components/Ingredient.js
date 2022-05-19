@@ -55,7 +55,9 @@ export default function Ingredient({ ing, servings, recipe }) {
 
   return (
     <li key={ing.ingredient} className='px-4 py-1 leading-tight'>
-      <span className='pr-1 font-bold'>{calculateAndFormatIngredientAmount(ing.ingAmount)}</span>
+      {ing.ingAmount && (
+        <span className='pr-1 font-bold'>{calculateAndFormatIngredientAmount(ing.ingAmount)}</span>
+      )}
       {makePlural(ing.ingAmount, ing.ingUnit)} {ing.ingredient}
     </li>
   );

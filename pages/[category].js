@@ -47,7 +47,7 @@ export async function getStaticProps(context) {
   let recipes = [];
 
   const recipesRef = collection(db, 'recipes');
-  const q = query(recipesRef, where('tags', 'array-contains', categorySlug));
+  const q = query(recipesRef, where('tags', 'array-contains', categorySlug), orderBy('title'));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });

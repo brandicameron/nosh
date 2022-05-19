@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://nosh-pi.vercel.app/</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/all</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/appetizers</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/sauces</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/soups</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/entrees</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/sides</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/desserts</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/breakfast</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/add-recipe</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/account</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/alfredo-sauce</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/blueberry-muffins</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/breakfast-casserole</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/buffalo-chicken-dip</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/chocolate-chip-cookies</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/christmas-cookie-frosting</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/christmas-cookies</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/deviled-eggs</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/erics-hot-chicken-mix</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/heathers-chicken-&amp;-rice-casserole</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/madres-fudge</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/make-ahead-mashed-potatoes</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/meatloaf</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/memaws-pecan-pie</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/onion-roasted-potatoes</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/spinach-egg-frittatas</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/stuffed-peppers</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/veras-ham-rolls</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/recipes/white-chili</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/www.brandicameron.com</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nosh-pi.vercel.app/privacy</loc>
+  <lastmod>2022-05-19T18:46:50+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>

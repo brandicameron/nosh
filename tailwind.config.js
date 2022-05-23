@@ -10,6 +10,9 @@ module.exports = {
       brightness: {
         60: '.60',
       },
+      screens: {
+        fine: { raw: '(pointer: fine)' },
+      },
     },
   },
   plugins: [],

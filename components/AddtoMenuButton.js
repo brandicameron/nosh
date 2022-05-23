@@ -38,7 +38,7 @@ export default function AddtoMenuButton({ position, recipe }) {
     <button
       onClick={() => handleAddRemoveMenu(recipe.id)}
       type='button'
-      className={`absolute ${position} filter-shadow z-40`}
+      className={`absolute ${position} filter-shadow z-30`}
       aria-label='Add or Remove From Menu'
       title='Add or Remove From Menu'
     >

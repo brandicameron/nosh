@@ -16,7 +16,7 @@ export function AddRecipeForm() {
   const [tags, setTags] = useState(['all']);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
-    'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2Fno-image.jpg?alt=media&token=eb5ed515-b8c4-402e-a895-86586316674a'
+    'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2Fno-image.gif?alt=media&token=c12db75b-b766-4418-8492-ad977b1066ad'
   );
   const [recipeData, setRecipeData] = useState({
     title: '',
@@ -25,8 +25,8 @@ export function AddRecipeForm() {
     preheat: '',
     prepHour: 0,
     prepMin: 0,
-    cookHour: '',
-    cookMin: '',
+    cookHour: 0,
+    cookMin: 0,
     tags: [],
   });
   const [ingredients, setIngredients] = useState([
@@ -106,8 +106,8 @@ export function AddRecipeForm() {
     const removeApostrophes = title.replace(/'/g, '');
     const slug = removeApostrophes.replace(/\s/g, '-').toLowerCase();
     // calculate total time
-    let totalHour = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour) || 0;
-    let totalMin = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin) || 0;
+    let totalHour = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour);
+    let totalMin = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin);
     // display total time
     if (totalMin > 60) {
       totalMin = totalMin % 60;
@@ -127,6 +127,7 @@ export function AddRecipeForm() {
     );
 
     setRecipeData(fullRecipe);
+    console.log(fullRecipe);
     addRecipeToFirebase(recipeData);
     router.push(`/recipes/${recipeData.slug}`);
   };

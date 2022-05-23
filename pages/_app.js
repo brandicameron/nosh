@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import Layout from '../components/Layout';
 import { AppContextWrapper } from '../AppContext';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
     <AppContextWrapper>
       <Layout>

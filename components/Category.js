@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import RecipeCard from './RecipeCard';
+import { motion } from 'framer-motion';
 
 export default function Category({ state, title }) {
   const scrollElement = useRef();
@@ -16,6 +17,23 @@ export default function Category({ state, title }) {
     }
   }, []);
 
+  //works, but not sure I super love it
+  // https://alvarotrigo.com/blog/scroll-horizontally-with-mouse-wheel-vanilla-java/
+
+  // useEffect(() => {
+  //   const scrollDiv = scrollElement.current;
+
+  //   scrollDiv.addEventListener('wheel', (e) => {
+  //     scrollDiv.scrollLeft += e.deltaY;
+  //   });
+
+  //   return () => {
+  //     scrollDiv.removeEventListener('wheel', (e) => {
+  //       scrollDiv.scrollLeft += e.deltaY;
+  //     });
+  //   };
+  // }, []);
+
   return (
     <section>
       <h2 className='text-2xl ml-9 font-black tracking-tight capitalize'>
@@ -27,11 +45,16 @@ export default function Category({ state, title }) {
         ref={scrollElement}
         className='overflow-x-scroll no-scrollbar'
       >
-        <ul className='flex w-max space-x-3 mb-10 first:ml-7'>
+        <motion.ul
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.1, type: 'spring', bounce: 1, mass: 0.5 }}
+          className='flex w-max space-x-3 mb-8 first:ml-7'
+        >
           {state.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

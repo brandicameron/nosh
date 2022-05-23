@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { db } from '../firebase/config';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
@@ -6,15 +6,31 @@ import { getAllCategories } from '../lib/categories';
 import Category from '../components/Category';
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
+import SplashPage from '../components/SplashPage';
 
 export default function Home({ recipes }) {
   const { categories } = getAllCategories();
   const { setRecipeData } = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // keeps search data up to date (context)
     if (recipes) {
       setRecipeData(recipes);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('shown')) {
+      setIsLoading(false);
+    }
+
+    if (!sessionStorage.getItem('shown')) {
+      let timer = setTimeout(() => {
+        sessionStorage.setItem('shown', true);
+        setIsLoading(false);
+      }, 2200);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -35,6 +51,9 @@ export default function Home({ recipes }) {
         <meta property='og:image' content='/nosh-share.jpg' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
+      {isLoading && <SplashPage />}
+      {/* <SplashPage /> */}
 
       {categories.map((category) => (
         <Category key={category} state={filterRecipes(category)} title={category} />

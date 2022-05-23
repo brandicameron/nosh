@@ -12,7 +12,7 @@ import AddInstructions from '../components/AddInstructions';
 export function AddRecipeForm() {
   const router = useRouter();
   const { addRecipeToFirebase } = useAddRecipe();
-  const { userUID, userName, userProfileUrl } = useUser();
+  const { userUID } = useUser();
   const [tags, setTags] = useState(['all']);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
@@ -117,9 +117,7 @@ export function AddRecipeForm() {
     const fullRecipe = Object.assign(
       recipeData,
       { slug: slug },
-      // { addedBy: userName },
       { addedByUid: userUID },
-      // { addedByImg: userProfileUrl },
       { featureImg: featureImgURL },
       { ingredients: ingredients },
       { instructions: instructions },

@@ -27,7 +27,7 @@ export default function Footer() {
 
       <p className='text-white text-sm pt-8 text-center'>
         &copy; {year}
-        <a className='ml-1 hover:text-primaryL' target='blank' href='www.brandicameron.com'>
+        <a className='ml-1 hover:text-primaryL' target='blank' href='https://www.brandicameron.com'>
           Brandi Cameron
         </a>
         <span className='px-2'>|</span>{' '}

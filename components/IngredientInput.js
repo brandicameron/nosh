@@ -1,3 +1,4 @@
+import { calcLength } from 'framer-motion';
 import { RiDeleteBinFill } from 'react-icons/ri';
 
 export default function IngredientInput({
@@ -7,6 +8,8 @@ export default function IngredientInput({
   handleDeleteInput,
   ingredients,
   setIngredients,
+  handleAddAnotherIngredient,
+  handleFocusNextOnEnter,
 }) {
   return (
     <div className='flex flex-grow'>
@@ -16,8 +19,7 @@ export default function IngredientInput({
         </label>
         <input
           className='w-16 rounded p-1.5 mb-5'
-          type='number'
-          inputMode='decimal'
+          type='text'
           name='ingAmount'
           value={ing.ingAmount || ''}
           onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}
@@ -34,6 +36,11 @@ export default function IngredientInput({
             name='ingredient'
             value={ing.ingredient}
             onChange={(e) => handleListInputChange(e, index, ingredients, setIngredients)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleFocusNextOnEnter(e, handleAddAnotherIngredient());
+              }
+            }}
           />
           <button
             onClick={() => handleDeleteInput(index, ingredients, setIngredients)}

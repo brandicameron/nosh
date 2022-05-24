@@ -7,6 +7,8 @@ export default function InstructionsInput({
   handleListInputChange,
   instructions,
   setInstructions,
+  handleAddAnotherStep,
+  handleFocusNextOnEnter,
 }) {
   return (
     <div className='relative flex flex-col w-full'>
@@ -19,6 +21,11 @@ export default function InstructionsInput({
         name='step'
         value={step.step}
         onChange={(e) => handleListInputChange(e, index, instructions, setInstructions)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleFocusNextOnEnter(e, handleAddAnotherStep());
+          }
+        }}
       />
       <button
         onClick={() => handleDeleteInput(index, instructions, setInstructions)}

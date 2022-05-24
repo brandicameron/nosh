@@ -6,6 +6,7 @@ export default function AddInstructions({
   handleListInputChange,
   handleDeleteInput,
   handleAddAnotherStep,
+  handleFocusNextOnEnter,
 }) {
   return (
     <fieldset className='flex flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>
@@ -19,6 +20,8 @@ export default function AddInstructions({
           handleListInputChange={handleListInputChange}
           instructions={instructions}
           setInstructions={setInstructions}
+          handleAddAnotherStep={handleAddAnotherStep}
+          handleFocusNextOnEnter={handleFocusNextOnEnter}
         />
       ))}
       <button

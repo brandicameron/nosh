@@ -99,6 +99,64 @@ export function AddRecipeForm() {
     setState(list);
   };
 
+  const handleFocusNextOnEnter = (e, handler) => {
+    e.preventDefault();
+    handler;
+    const form = e.target.form;
+    const index = [...form].indexOf(e.target);
+    setTimeout(() => {
+      form.elements[index + 2].focus();
+    }, 100);
+  };
+
+  const handleEnteredFractions = () => {
+    let tempIngredients = ingredients;
+    tempIngredients.map((ing) => {
+      const string = ing.ingAmount.toString();
+
+      if (string.includes(' ')) {
+        const splitString = string.split(' ');
+        const integer = splitString[0];
+        const fraction = splitString[1];
+
+        if (fraction !== undefined) {
+          if (fraction === '1/8') {
+            ing.ingAmount = parseFloat(integer + '.125');
+          } else if (fraction === '1/4') {
+            ing.ingAmount = parseFloat(integer + '.25');
+          } else if (fraction === '1/3') {
+            ing.ingAmount = parseFloat(integer + '.33');
+          } else if (fraction === '1/2') {
+            ing.ingAmount = parseFloat(integer + '.5');
+          } else if (fraction === '2/3') {
+            ing.ingAmount = parseFloat(integer + '.66');
+          } else if (fraction === '3/4') {
+            ing.ingAmount = parseFloat(integer + '.75');
+          }
+        }
+      }
+
+      if (!string.includes(' ')) {
+        if (ing.ingAmount === '1/8') {
+          ing.ingAmount = 0.125;
+        } else if (ing.ingAmount === '1/4') {
+          ing.ingAmount = 0.25;
+        } else if (ing.ingAmount === '1/3') {
+          ing.ingAmount = 0.33;
+        } else if (ing.ingAmount === '1/2') {
+          ing.ingAmount = 0.5;
+        } else if (ing.ingAmount === '2/3') {
+          ing.ingAmount = 0.66;
+        } else if (ing.ingAmount === '3/4') {
+          ing.ingAmount = 0.75;
+        } else {
+          ing.ingAmount = parseFloat(ing.ingAmount);
+        }
+      }
+    });
+    setIngredients(tempIngredients);
+  };
+
   const saveNewRecipe = (e) => {
     e.preventDefault();
     // create slug
@@ -114,6 +172,8 @@ export function AddRecipeForm() {
       totalHour = totalHour + 1;
     }
 
+    handleEnteredFractions();
+
     const fullRecipe = Object.assign(
       recipeData,
       { slug: slug },
@@ -127,7 +187,7 @@ export function AddRecipeForm() {
     );
 
     setRecipeData(fullRecipe);
-    console.log(fullRecipe);
+    // console.log(fullRecipe);
     addRecipeToFirebase(recipeData);
     router.push(`/recipes/${recipeData.slug}`);
   };
@@ -135,10 +195,7 @@ export function AddRecipeForm() {
   return (
     <>
       <h1 className='my-10 text-3xl text-white font-black'>Add New Recipe</h1>
-      <form
-        onSubmit={saveNewRecipe}
-        className='relative flex flex-col rounded px-5 w-11/12 md:max-w-xl md:px-8'
-      >
+      <form className='relative flex flex-col rounded px-5 w-11/12 md:max-w-xl md:px-8'>
         <StandardInput
           name='title'
           type='text'
@@ -219,6 +276,7 @@ export function AddRecipeForm() {
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
           handleAddAnotherIngredient={handleAddAnotherIngredient}
+          handleFocusNextOnEnter={handleFocusNextOnEnter}
         />
 
         <AddInstructions
@@ -227,11 +285,13 @@ export function AddRecipeForm() {
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
           handleAddAnotherStep={handleAddAnotherStep}
+          handleFocusNextOnEnter={handleFocusNextOnEnter}
         />
 
         <button
           className='flex justify-center items-center w-full bg-white text-primary py-5 rounded my-6 text-3xl font-black shadow-lg'
-          type='submit'
+          type='button'
+          onClick={saveNewRecipe}
         >
           Save
         </button>

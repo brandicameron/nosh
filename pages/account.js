@@ -12,6 +12,7 @@ import { getAuth, updateProfile } from 'firebase/auth';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import { db } from '../firebase/config';
 import { doc, updateDoc } from 'firebase/firestore';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Account() {
   const { userUID, userName, userProfileUrl, loggedIn } = useUser();
@@ -124,7 +125,7 @@ export default function Account() {
         {loggedIn && (
           <section className='bg-neutral-50 rounded-xl p-5 max-w-xs'>
             <div className='flex justify-center items-center bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
-              {isUploading && <div className='loader'></div>}
+              {isUploading && <LoadingSpinner />}
               {!isUploading && (
                 <Image
                   src={newProfileURL || userProfileUrl}

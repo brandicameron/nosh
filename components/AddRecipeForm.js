@@ -8,11 +8,13 @@ import AddIngredients from '../components/AddIngredients';
 import StandardInput from '../components/StandardInput';
 import EmbeddedLabelInput from '../components/EmbeddedLabelInput';
 import AddInstructions from '../components/AddInstructions';
+import LoadingSpinner from './LoadingSpinner';
 
 export function AddRecipeForm() {
   const router = useRouter();
   const { addRecipeToFirebase } = useAddRecipe();
   const { userUID } = useUser();
+  const [isUploading, setIsUploading] = useState(false);
   const [tags, setTags] = useState(['all']);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
@@ -188,6 +190,7 @@ export function AddRecipeForm() {
 
     setRecipeData(fullRecipe);
     // console.log(fullRecipe);
+    setIsUploading(true);
     addRecipeToFirebase(recipeData);
     router.push(`/recipes/${recipeData.slug}`);
   };
@@ -289,11 +292,11 @@ export function AddRecipeForm() {
         />
 
         <button
-          className='flex justify-center items-center w-full bg-white text-primary py-5 rounded my-6 text-3xl font-black shadow-lg'
+          className='flex justify-center items-center w-full h-16 bg-white text-primary rounded my-6 text-3xl font-black shadow-lg'
           type='button'
           onClick={saveNewRecipe}
         >
-          Save
+          {isUploading ? <LoadingSpinner /> : 'Save'}
         </button>
       </form>
     </>

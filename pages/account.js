@@ -18,6 +18,7 @@ export default function Account() {
   const [message, setMessage] = useState('Hello');
   const [newDisplayName, setNewDisplayName] = useState('');
   const [newProfileURL, setNewProfileURL] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const { handleFormSwitch, signUp } = useFormSwitch();
   const { logoutUser } = useLogout();
   const { uploadImage } = useStorage();
@@ -38,9 +39,16 @@ export default function Account() {
   }, []);
 
   const handleProfileImageChange = (e) => {
+    setIsUploading(true);
     const newImage = e.target.files;
     uploadImage(newImage, setNewProfileURL, 'profileImages');
   };
+
+  useEffect(() => {
+    if (newProfileURL) {
+      setIsUploading(false);
+    }
+  }, [newProfileURL]);
 
   useEffect(() => {
     setNewDisplayName(userName);
@@ -89,18 +97,18 @@ export default function Account() {
           if (oldProfile !== 'generic-user.gif') {
             const storage = getStorage();
             const oldProfileRef = ref(storage, `profileImages/${oldProfile}`);
-            deleteObject(oldProfileRef)
-              .then(() => {
-                console.log('File deleted successfully');
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+            deleteObject(oldProfileRef);
+            // .then(() => {
+            //   console.log('File deleted successfully');
+            // })
+            // .catch((error) => {
+            //   console.log(error);
+            // });
           }
-        })
-        .catch((error) => {
-          console.log(error);
         });
+      // .catch((error) => {
+      //   console.log(error);
+      // });
     }
   }, [newProfileURL]);
 
@@ -115,14 +123,17 @@ export default function Account() {
 
         {loggedIn && (
           <section className='bg-neutral-50 rounded-xl p-5 max-w-xs'>
-            <div className='bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
-              <Image
-                src={newProfileURL || userProfileUrl}
-                alt={`${userName} Profile Picture`}
-                width={96}
-                height={96}
-                className='object-cover'
-              />
+            <div className='flex justify-center items-center bg-white border-2 rounded-full object-cover object-top w w-24 h-24 mx-auto -mt-14 mb-1 overflow-hidden'>
+              {isUploading && <div className='loader'></div>}
+              {!isUploading && (
+                <Image
+                  src={newProfileURL || userProfileUrl}
+                  alt={`${userName} Profile Picture`}
+                  width={96}
+                  height={96}
+                  className='object-cover'
+                />
+              )}
             </div>
             <h1 className='text-3xl text-primary font-black text-center mt-6 mb-9 lg:text-3xl'>
               {message}, {newDisplayName.split(' ')[0] || userName.split(' ')[0]}!

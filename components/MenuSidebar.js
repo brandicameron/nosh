@@ -1,8 +1,8 @@
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { RiBookmarkLine } from 'react-icons/ri';
-import { useContext } from 'react';
-import { AppContext } from '../AppContext';
 
 export default function MenuSidebar({ recipe }) {
   const { menuItems } = useContext(AppContext);

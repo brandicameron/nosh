@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { useSignUp } from '../hooks/useSignUp';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useSignUp } from '../hooks/useSignUp';
 
 export default function Signup({ handleFormSwitch }) {
   const [inputValues, setInputValues] = useState({ email: '', displayName: '', password: '' });

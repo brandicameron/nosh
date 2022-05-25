@@ -2,8 +2,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { db } from '../firebase/config';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
-import RecipeCard from '../components/RecipeCard';
 import { getAllCategories } from '../lib/categories';
+import RecipeCard from '../components/RecipeCard';
 
 export default function Category({ recipes }) {
   const router = useRouter();

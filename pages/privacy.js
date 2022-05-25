@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function privacy() {
   return (
     <section className='flex flex-col mx-auto w-3/4 max-w-2xl py-7 mb-6'>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { FiClock } from 'react-icons/fi';
 import { db } from '../firebase/config';
 import { doc, onSnapshot } from 'firebase/firestore';
+import Image from 'next/image';
 
 export default function RecipeDetails({ recipe, servings, setServings }) {
   const [recipeAddedBy, setRecipeAddedBy] = useState('');

@@ -4,8 +4,8 @@ import { useStorage } from '../hooks/useStorage';
 import { RiFileUploadLine } from 'react-icons/ri';
 
 export default function FeatureImageInput({ setFeatureImgURL }) {
-  const { uploadImage } = useStorage();
   const [files, setFiles] = useState([]);
+  const { uploadImage } = useStorage();
 
   const acceptStyle = {
     backgroundColor: '#d6fdd6',

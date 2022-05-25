@@ -1,12 +1,25 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { db } from '../firebase/config';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { useUser } from '../hooks/useUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { RiAddCircleLine } from 'react-icons/ri';
 import SearchBar from './SearchBar';
-import Image from 'next/image';
-import { useUser } from '../hooks/useUser';
 
 export default function SecondaryNav() {
-  const { loggedIn, userProfileUrl, userName } = useUser();
+  const [profileImg, setProfileImg] = useState('');
+  const { loggedIn, userName, userUID, userProfileUrl } = useUser();
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'Users', `${userUID}`), (doc) => {
+      const data = doc.data();
+      if (data) {
+        setProfileImg(data.photoURL);
+      }
+    });
+  }, []);
 
   return (
     <ul className='flex space-x-2'>
@@ -27,10 +40,10 @@ export default function SecondaryNav() {
         <Link href='/account'>
           <a title='Your Account'>
             <span className='text-white cursor-pointer hover:opacity-80 sr-only'>Your Account</span>
-            {loggedIn && userProfileUrl ? (
+            {loggedIn && profileImg ? (
               <div className='h-8 w-8'>
                 <Image
-                  src={userProfileUrl}
+                  src={profileImg || userProfileUrl}
                   alt={`${userName}'s Profile Picture`}
                   width={28}
                   height={28}

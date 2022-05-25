@@ -1,4 +1,3 @@
-import { calcLength } from 'framer-motion';
 import { RiDeleteBinFill } from 'react-icons/ri';
 
 export default function IngredientInput({

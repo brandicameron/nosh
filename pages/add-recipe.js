@@ -1,9 +1,9 @@
 import Head from 'next/head';
+import { useUser } from '../hooks/useUser';
+import { useFormSwitch } from '../hooks/useFormSwitch';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import { AddRecipeForm } from './../components/AddRecipeForm';
-import { useUser } from '../hooks/useUser';
-import { useFormSwitch } from '../hooks/useFormSwitch';
 
 export default function AddRecipe() {
   const { loggedIn } = useUser();

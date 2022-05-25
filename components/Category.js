@@ -3,18 +3,18 @@ import RecipeCard from './RecipeCard';
 import { motion } from 'framer-motion';
 
 export default function Category({ state, title }) {
-  const scrollElement = useRef();
-  const listElement = useRef();
   const [windowWidth, setWindowWidth] = useState(0);
   const [elementWidth, setElementWidth] = useState(0);
   const [elementScrollPos, setElementScrollPos] = useState(0);
+  const scrollElement = useRef();
+  const listElement = useRef();
 
   const getScrollPosition = (e) => {
     sessionStorage.setItem(title, JSON.stringify(e.target.scrollLeft));
   };
 
-  // retrieve scroll positions from local storage if available and set scroll position
   useEffect(() => {
+    // retrieve scroll positions from local storage if available and set scroll position
     const xPos = JSON.parse(sessionStorage.getItem(title));
     if (xPos) {
       scrollElement.current.scrollLeft = xPos;
@@ -28,7 +28,6 @@ export default function Category({ state, title }) {
 
   useEffect(() => {
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
-
     return () => {
       window.removeEventListener('resize', () => setWindowWidth(window.innerWidth));
     };

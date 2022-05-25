@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { getAllCategories } from '../lib/categories';
 import { useRouter } from 'next/router';
+import { getAllCategories } from '../lib/categories';
 
 export default function Footer() {
-  const { categories } = getAllCategories();
   const router = useRouter();
+  const { categories } = getAllCategories();
 
   const d = new Date();
   let year = d.getFullYear();

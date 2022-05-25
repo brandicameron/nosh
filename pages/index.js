@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
+import { useState, useEffect } from 'react';
 import { db } from '../firebase/config';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { getAllCategories } from '../lib/categories';
 import Category from '../components/Category';
-import { useContext } from 'react';
-import { AppContext } from '../AppContext';
 import SplashPage from '../components/SplashPage';
 
 export default function Home({ recipes }) {
-  const { categories } = getAllCategories();
-  const { setRecipeData } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
+  const { setRecipeData } = useContext(AppContext);
+  const { categories } = getAllCategories();
 
   useEffect(() => {
     // keeps search data up to date (context)

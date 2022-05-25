@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import { useAddRecipe } from '../hooks/useAddRecipe';
 import { useUser } from '../hooks/useUser';
-import FeatureImageInput from './FeatureImageInput';
-import CategoryInput from '../components/CategoryInput';
-import AddIngredients from '../components/AddIngredients';
+import FeatureImageInput from '../components/FeatureImageInput';
 import StandardInput from '../components/StandardInput';
 import EmbeddedLabelInput from '../components/EmbeddedLabelInput';
+import CategoryInput from '../components/CategoryInput';
+import AddIngredients from '../components/AddIngredients';
 import AddInstructions from '../components/AddInstructions';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export function AddRecipeForm() {
   const router = useRouter();

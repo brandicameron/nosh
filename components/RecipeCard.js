@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import AddtoMenuButton from './AddtoMenuButton';
 import { motion } from 'framer-motion';
+import AddtoMenuButton from './AddtoMenuButton';
 
 export default function RecipeCard({ recipe }) {
   return (

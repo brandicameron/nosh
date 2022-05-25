@@ -1,9 +1,9 @@
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CgSearch } from 'react-icons/cg';
-import { useContext } from 'react';
-import { AppContext } from '../AppContext';
 
 export default function SearchBar() {
   const { recipeData } = useContext(AppContext);

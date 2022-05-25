@@ -5,9 +5,12 @@ export default function AddInstructions({
   setInstructions,
   handleListInputChange,
   handleDeleteInput,
-  handleAddAnotherStep,
   handleFocusNextOnEnter,
 }) {
+  const handleAddAnotherStep = () => {
+    setInstructions([...instructions, { step: '' }]);
+  };
+
   return (
     <fieldset className='flex flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>
       <legend className='text-white text-3xl font-black px-2'>Instructions</legend>

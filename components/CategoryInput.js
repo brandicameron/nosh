@@ -1,7 +1,21 @@
 import { getAllCategories } from '../lib/categories';
 
-export default function CategoryInput({ handleCategoriesChange }) {
+export default function CategoryInput({ tags, setTags }) {
   const { categories } = getAllCategories();
+
+  const handleCategoriesChange = (e) => {
+    let name = e.target.name;
+    let checked = e.target.checked;
+
+    if (checked === true) {
+      setTags((prev) => [...prev, name]);
+    }
+    // remove tags that have been unchecked by user that were previously selected
+    if (checked === false) {
+      let result = tags.filter((tag) => tag !== name);
+      setTags(result);
+    }
+  };
 
   return (
     <fieldset className='flex justify-center items-center flex-wrap border border-solid border-gray-300 p-3 pb-5 mt-5 rounded'>

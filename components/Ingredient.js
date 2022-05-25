@@ -8,8 +8,8 @@ export default function Ingredient({ ing, servings, recipe }) {
       const integer = splitAmount[0] === '0' ? '' : splitAmount[0];
       const fractionalAmount = '.' + splitAmount[1];
       // prevents returning (ex) .583333333333333333333 in the recipe
-
       const fractional = fractionalAmount.slice(0, 3);
+
       if (fractional >= 0.001 && fractional <= 0.1875) {
         return integer + ' ' + '⅛';
       } else if (fractional >= 0.1876 && fractional <= 0.2915) {
@@ -39,6 +39,7 @@ export default function Ingredient({ ing, servings, recipe }) {
     }
   };
 
+  // leave for recipes that were added when there was still a unit dropdown in the form
   const makePlural = (amount, unit) => {
     if (unit) {
       if (amount > 1) {

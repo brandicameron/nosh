@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAddRecipe } from '../hooks/useAddRecipe';
 import { useUser } from '../hooks/useUser';
@@ -16,6 +16,9 @@ export function AddRecipeForm() {
   const { userUID } = useUser();
   const [isUploading, setIsUploading] = useState(false);
   const [tags, setTags] = useState(['all']);
+  const [slug, setSlug] = useState('');
+  const [totalMin, setTotalMin] = useState(0);
+  const [totalHour, setTotalHour] = useState(0);
   const [instructions, setInstructions] = useState([{ step: '' }]);
   const [featureImgURL, setFeatureImgURL] = useState(
     'https://firebasestorage.googleapis.com/v0/b/recipes-13eed.appspot.com/o/featureImages%2Fno-image.gif?alt=media&token=c12db75b-b766-4418-8492-ad977b1066ad'
@@ -63,36 +66,7 @@ export function AddRecipeForm() {
     } else {
       list[index][name] = value;
     }
-
     setState(list);
-  };
-
-  const handleCategoriesChange = (e) => {
-    let name = e.target.name;
-    let checked = e.target.checked;
-
-    if (checked === true) {
-      setTags((prev) => [...prev, name]);
-    }
-    // remove tags that have been unchecked by user that were previously selected
-    if (checked === false) {
-      let result = tags.filter((tag) => tag !== name);
-      setTags(result);
-    }
-  };
-
-  const handleAddAnotherIngredient = () => {
-    setIngredients([
-      ...ingredients,
-      {
-        ingAmount: '',
-        ingredient: '',
-      },
-    ]);
-  };
-
-  const handleAddAnotherStep = () => {
-    setInstructions([...instructions, { step: '' }]);
   };
 
   const handleDeleteInput = (index, state, setState) => {
@@ -101,15 +75,43 @@ export function AddRecipeForm() {
     setState(list);
   };
 
-  const handleFocusNextOnEnter = (e, handler) => {
+  const handleFocusNextOnEnter = (e, callback) => {
     e.preventDefault();
-    handler;
+    callback;
     const form = e.target.form;
     const index = [...form].indexOf(e.target);
     setTimeout(() => {
       form.elements[index + 2].focus();
-    }, 100);
+    }, 50);
   };
+
+  const createSlug = () => {
+    const title = recipeData.title;
+    const removeApostrophes = title.replace(/'/g, '');
+    setSlug(removeApostrophes.replace(/\s/g, '-').toLowerCase());
+  };
+
+  useEffect(() => {
+    if (recipeData.title) {
+      createSlug();
+    }
+  }, [recipeData.title]);
+
+  const calculateTotalTime = () => {
+    let totalHr = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour);
+    let totalMinutes = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin);
+    // display total time
+    if (totalMinutes > 60) {
+      totalMinutes = totalMinutes % 60;
+      totalHr = totalHr + 1;
+    }
+    setTotalHour(totalHr);
+    setTotalMin(totalMinutes);
+  };
+
+  useEffect(() => {
+    calculateTotalTime();
+  }, [recipeData.prepHour, recipeData.prepMin, recipeData.cookHour, recipeData.cookMin]);
 
   const handleEnteredFractions = () => {
     let tempIngredients = ingredients;
@@ -161,19 +163,6 @@ export function AddRecipeForm() {
 
   const saveNewRecipe = (e) => {
     e.preventDefault();
-    // create slug
-    const title = recipeData.title;
-    const removeApostrophes = title.replace(/'/g, '');
-    const slug = removeApostrophes.replace(/\s/g, '-').toLowerCase();
-    // calculate total time
-    let totalHour = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour);
-    let totalMin = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin);
-    // display total time
-    if (totalMin > 60) {
-      totalMin = totalMin % 60;
-      totalHour = totalHour + 1;
-    }
-
     handleEnteredFractions();
 
     const fullRecipe = Object.assign(
@@ -271,14 +260,13 @@ export function AddRecipeForm() {
           />
         </div>
 
-        <CategoryInput handleCategoriesChange={handleCategoriesChange} />
+        <CategoryInput tags={tags} setTags={setTags} />
 
         <AddIngredients
           ingredients={ingredients}
           setIngredients={setIngredients}
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
-          handleAddAnotherIngredient={handleAddAnotherIngredient}
           handleFocusNextOnEnter={handleFocusNextOnEnter}
         />
 
@@ -287,7 +275,6 @@ export function AddRecipeForm() {
           setInstructions={setInstructions}
           handleListInputChange={handleListInputChange}
           handleDeleteInput={handleDeleteInput}
-          handleAddAnotherStep={handleAddAnotherStep}
           handleFocusNextOnEnter={handleFocusNextOnEnter}
         />
 

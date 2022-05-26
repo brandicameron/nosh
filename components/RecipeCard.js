@@ -6,7 +6,7 @@ import AddtoMenuButton from './AddtoMenuButton';
 export default function RecipeCard({ recipe }) {
   return (
     <motion.li
-      whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+      whileHover={{ scale: 1.03, transition: { duration: 0.1 } }}
       className='relative h-24 w-44 shadow-xl rounded-xl lg:h-32 lg:w-52'
     >
       <AddtoMenuButton position='right-2 top-1' recipe={recipe} />

@@ -53,8 +53,8 @@ a:focus-visible,
 button:focus-visible,
 select:focus-visible {
   display: inline-block;
-  outline: 2px solid #c7d2fe;
-  outline-offset: 2px;
+  outline: 2px solid var(--primaryM);
+  outline-offset: 3px;
 }
 
 input::placeholder {

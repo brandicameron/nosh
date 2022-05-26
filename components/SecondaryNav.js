@@ -40,7 +40,7 @@ export default function SecondaryNav() {
         <Link href='/account'>
           <a title='Your Account'>
             <span className='text-white cursor-pointer hover:opacity-80 sr-only'>Your Account</span>
-            {loggedIn && profileImg ? (
+            {loggedIn && userProfileUrl ? (
               <div className='h-8 w-8'>
                 <Image
                   src={profileImg || userProfileUrl}

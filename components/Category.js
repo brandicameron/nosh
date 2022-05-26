@@ -50,17 +50,17 @@ export default function Category({ state, title }) {
       {elementScrollPos > 0 && (
         <button
           onClick={handleScrollLeft}
-          className='hidden absolute fine:flex justify-center items-center bg-black bg-opacity-50 h-2/3 w-3 text-white text-5xl p-6 left-0 top-8 z-40'
+          className='hidden absolute fine:flex justify-center items-center bg-neutral-800 bg-opacity-50 h-2/3 w-10 text-white text-6xl pb-3 left-0 top-8 z-40'
         >
-          &#60;
+          &#8249;
         </button>
       )}
       {elementWidth > windowWidth && (
         <button
           onClick={handleScrollRight}
-          className='hidden absolute fine:flex justify-center items-center bg-black bg-opacity-50 h-2/3 w-3 text-white text-5xl p-6 right-0 top-8 z-40'
+          className='hidden absolute fine:flex justify-center items-center bg-neutral-800 bg-opacity-50 h-2/3 w-10 text-white text-6xl pb-3 right-0 top-8 z-40'
         >
-          &#62;
+          &#8250;
         </button>
       )}
       <h2 className='text-2xl ml-9 font-black tracking-tight capitalize'>

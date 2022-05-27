@@ -26,7 +26,7 @@ export default function Home({ recipes }) {
     }
 
     if (!sessionStorage.getItem('shown')) {
-      let timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         sessionStorage.setItem('shown', true);
         setIsLoading(false);
       }, 2200);
@@ -35,7 +35,7 @@ export default function Home({ recipes }) {
   }, []);
 
   const filterRecipes = (category) => {
-    let filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
+    const filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
     return filtered;
   };
 
@@ -53,7 +53,6 @@ export default function Home({ recipes }) {
       </Head>
 
       {isLoading && <SplashPage />}
-      {/* <SplashPage /> */}
 
       {categories.map((category) => (
         <Category key={category} state={filterRecipes(category)} title={category} />

@@ -4,15 +4,15 @@ export default function CategoryInput({ tags, setTags }) {
   const { categories } = getAllCategories();
 
   const handleCategoriesChange = (e) => {
-    let name = e.target.name;
-    let checked = e.target.checked;
+    const name = e.target.name;
+    const checked = e.target.checked;
 
     if (checked === true) {
       setTags((prev) => [...prev, name]);
     }
     // remove tags that have been unchecked by user that were previously selected
     if (checked === false) {
-      let result = tags.filter((tag) => tag !== name);
+      const result = tags.filter((tag) => tag !== name);
       setTags(result);
     }
   };

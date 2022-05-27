@@ -4,8 +4,8 @@ export default function AccountGreeting({ uxDisplayName, userName }) {
   const [message, setMessage] = useState('Hello');
 
   useEffect(() => {
-    let time = new Date();
-    let hour = time.getHours();
+    const time = new Date();
+    const hour = time.getHours();
 
     if (hour < 12) {
       setMessage('Good morning');

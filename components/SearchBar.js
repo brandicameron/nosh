@@ -11,7 +11,7 @@ export default function SearchBar() {
   const [searchResults, setSearchResults] = useState([]);
 
   const filterSearchTerm = (searchTerm) => {
-    let results = recipeData.filter((recipe) =>
+    const results = recipeData.filter((recipe) =>
       recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);

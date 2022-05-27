@@ -20,7 +20,7 @@ export default function AddtoMenuButton({ position, recipe }) {
     }
 
     if (menuItems.some((e) => e.id === recipe.id)) {
-      let filteredItems = menuItems.filter((item) => item.id !== recipe.id);
+      const filteredItems = menuItems.filter((item) => item.id !== recipe.id);
       setMenuItems(filteredItems);
       setShowMenuAdded(false);
     }

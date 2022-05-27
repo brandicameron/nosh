@@ -7,7 +7,7 @@ export default function Footer() {
   const { categories } = getAllCategories();
 
   const d = new Date();
-  let year = d.getFullYear();
+  const year = d.getFullYear();
 
   return (
     <footer className='bg-primary py-10 border-t border-primaryM  mb-auto flex flex-col justify-center items-center'>

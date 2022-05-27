@@ -98,8 +98,8 @@ export function AddRecipeForm() {
   }, [recipeData.title]);
 
   const calculateTotalTime = () => {
-    let totalHr = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour);
-    let totalMinutes = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin);
+    const totalHr = parseInt(recipeData.prepHour) + parseInt(recipeData.cookHour);
+    const totalMinutes = parseInt(recipeData.prepMin) + parseInt(recipeData.cookMin);
     // display total time
     if (totalMinutes > 60) {
       totalMinutes = totalMinutes % 60;
@@ -114,7 +114,7 @@ export function AddRecipeForm() {
   }, [recipeData.prepHour, recipeData.prepMin, recipeData.cookHour, recipeData.cookMin]);
 
   const handleEnteredFractions = () => {
-    let tempIngredients = ingredients;
+    const tempIngredients = ingredients;
     tempIngredients.map((ing) => {
       const string = ing.ingAmount.toString();
 
@@ -178,7 +178,6 @@ export function AddRecipeForm() {
     );
 
     setRecipeData(fullRecipe);
-    // console.log(fullRecipe);
     setIsUploading(true);
     addRecipeToFirebase(recipeData);
     router.push(`/recipes/${recipeData.slug}`);

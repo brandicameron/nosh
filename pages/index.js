@@ -61,7 +61,7 @@ export default function Home({ recipes }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let recipes = [];
 
   const collRef = collection(db, 'recipes');

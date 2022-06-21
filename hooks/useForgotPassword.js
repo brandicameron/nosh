@@ -20,7 +20,6 @@ export const useForgotPassword = () => {
         }, 2000);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         setMessageText(errorMessage);
       });

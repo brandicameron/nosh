@@ -3,14 +3,14 @@ import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/config';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, onSnapshot } from 'firebase/firestore';
 import { getAllCategories } from '../lib/categories';
 import Category from '../components/Category';
 import SplashPage from '../components/SplashPage';
 
 export default function Home({ recipes }) {
   const [isLoading, setIsLoading] = useState(true);
-  const { setRecipeData } = useContext(AppContext);
+  const { recipeData, setRecipeData } = useContext(AppContext);
   const { categories } = getAllCategories();
 
   useEffect(() => {
@@ -34,10 +34,30 @@ export default function Home({ recipes }) {
     }
   }, []);
 
+  useEffect(() => {
+    const collRef = collection(db, 'recipes');
+    const q = query(collRef, orderBy('title'));
+
+    const unsub = onSnapshot(q, (snapshot) => {
+      let tempData = [];
+      snapshot.docs.forEach((doc) => {
+        tempData.push({ id: doc.id, ...doc.data() });
+      });
+      console.log('Fresh Data in!');
+      setRecipeData(tempData);
+    });
+
+    return () => unsub();
+  }, []);
+
   const filterRecipes = (category) => {
-    const filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
+    const filtered = recipeData.filter((recipe) => recipe.tags.find((el) => el === category));
     return filtered;
   };
+  // const filterRecipes = (category) => {
+  //   const filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
+  //   return filtered;
+  // };
 
   return (
     <>
@@ -69,14 +89,6 @@ export async function getStaticProps() {
   querySnapshot.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
-
-  const time = new Date().toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
-
-  console.log('data fetched at index.js: ' + recipes.length + ' docs at ' + time);
 
   return {
     props: {

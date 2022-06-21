@@ -73,14 +73,6 @@ export async function getStaticProps(context) {
     recipe = { id: doc.id, ...doc.data() };
   });
 
-  const time = new Date().toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
-
-  console.log('data fetched: ' + recipe.title + ' doc at ' + time);
-
   return {
     props: {
       recipe: JSON.parse(JSON.stringify(recipe)),

@@ -21,6 +21,7 @@ export default function Home({ recipes }) {
   }, []);
 
   useEffect(() => {
+    // prevents splash page from showing every time a user returns home
     if (sessionStorage.getItem('shown')) {
       setIsLoading(false);
     }
@@ -35,6 +36,7 @@ export default function Home({ recipes }) {
   }, []);
 
   useEffect(() => {
+    // realtime listener
     const collRef = collection(db, 'recipes');
     const q = query(collRef, orderBy('title'));
 
@@ -43,7 +45,6 @@ export default function Home({ recipes }) {
       snapshot.docs.forEach((doc) => {
         tempData.push({ id: doc.id, ...doc.data() });
       });
-      console.log('Fresh Data in!');
       setRecipeData(tempData);
     });
 
@@ -54,10 +55,6 @@ export default function Home({ recipes }) {
     const filtered = recipeData.filter((recipe) => recipe.tags.find((el) => el === category));
     return filtered;
   };
-  // const filterRecipes = (category) => {
-  //   const filtered = recipes.filter((recipe) => recipe.tags.find((el) => el === category));
-  //   return filtered;
-  // };
 
   return (
     <>

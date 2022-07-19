@@ -24,7 +24,7 @@ export default function Category({ state, title }) {
   useEffect(() => {
     setWindowWidth(window.innerWidth);
     setElementWidth(listElement.current.offsetWidth);
-  }, []);
+  }, [listElement.current]);
 
   useEffect(() => {
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));

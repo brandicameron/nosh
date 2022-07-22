@@ -39,7 +39,7 @@ export default function SearchBar() {
     <div className='relative'>
       <form className='relative' role='search' onSubmit={handleSubmit}>
         <input
-          className='appearance-none p-1 pl-3 w-[190px] text-indigo-600 lg:rounded-md'
+          className='appearance-none p-1 pl-3 w-[130px] text-indigo-600 lg:rounded-md lg:w-[190px]'
           name='search'
           type='search'
           value={searchTerm}

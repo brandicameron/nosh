@@ -9,6 +9,7 @@ My first Next.js project — a full featured "Netflix style" recipe app.
 - Change the servings and the ingredient amounts automatically recalculate for you.
 - Add recipes to your menu for quick switching right from the recipe page.
 - When adding recipes, type fractional amounts naturally (e.g. 1/2 tsp vanilla) and the app takes care of the decimal conversion under the hood for servings recalculations.
+- Pressing enter after adding ingredient/step automatically adds a new input for the next ingredient/step
 - Drag & drop profile pic change, updates on any recipes you've previously added.
 - Designed in Figma
 - Firebase 9 for Auth, Database, and Image Storage

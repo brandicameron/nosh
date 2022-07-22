@@ -22,7 +22,7 @@ export default function Login({ handleFormSwitch }) {
   };
 
   return (
-    <div className='relative flex flex-col bg-white rounded-lg p-8 w-80'>
+    <div className='relative flex flex-col bg-white rounded-lg p-8 w-[80%] lg:w-80'>
       <h1 className='text-3xl text-primary font-black text-center mb-2 leading-none'>Login</h1>
 
       <a
